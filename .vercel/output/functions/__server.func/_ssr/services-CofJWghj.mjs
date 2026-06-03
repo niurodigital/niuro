@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { S as Section, a as SectionHeader, R as Reveal } from "./Section-DzcRWewI.mjs";
+import { S as Section, a as SectionHeader, R as Reveal } from "./Section-DpXDcXiL.mjs";
 import { G as Globe, c as Layers, S as Smartphone, d as Monitor, C as Check } from "../_libs/lucide-react.mjs";
 import "../_libs/framer-motion.mjs";
 import "../_libs/motion-dom.mjs";
@@ -23,7 +23,7 @@ const groups = [{
 }];
 function Services() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Section, { className: "pt-28", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(SectionHeader, { eyebrow: "Services", title: "Everything you need to ship software", subtitle: "Pick a single service or let us own your whole digital stack." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(SectionHeader, { title: "Everything you need to ship software", subtitle: "Pick a single service or let us own your whole digital stack." }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid gap-6 md:grid-cols-2", children: groups.map((g, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Reveal, { delay: i * 0.08, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "h-full rounded-2xl glass p-8 transition-all hover:-translate-y-1 hover:shadow-glow", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-xl bg-gradient-primary p-3 text-primary-foreground shadow-glow", children: /* @__PURE__ */ jsxRuntimeExports.jsx(g.icon, { size: 22 }) }),

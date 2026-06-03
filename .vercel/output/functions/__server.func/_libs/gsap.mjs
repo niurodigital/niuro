@@ -529,8 +529,8 @@ var _config = {
 }, normalize = function normalize2(min, max, value) {
   return mapRange(min, max, 0, 1, value);
 }, _wrapArray = function _wrapArray2(a, wrapper, value) {
-  return _conditionalReturn(value, function(index) {
-    return a[~~wrapper(index)];
+  return _conditionalReturn(value, function(index2) {
+    return a[~~wrapper(index2)];
   });
 }, wrap = function wrap2(min, max, value) {
   var range = max - min;
@@ -879,13 +879,13 @@ var _config = {
 })(), _wake = function _wake2() {
   return !_tickerActive && _ticker.wake();
 }, _easeMap = {}, _customEaseExp = /^[\d.\-M][\d.\-,\s]/, _quotesExp = /["']/g, _parseObjectInString = function _parseObjectInString2(value) {
-  var obj = {}, split = value.substr(1, value.length - 3).split(":"), key = split[0], i = 1, l = split.length, index, val, parsedVal;
+  var obj = {}, split = value.substr(1, value.length - 3).split(":"), key = split[0], i = 1, l = split.length, index2, val, parsedVal;
   for (; i < l; i++) {
     val = split[i];
-    index = i !== l - 1 ? val.lastIndexOf(",") : val.length;
-    parsedVal = val.substr(0, index);
+    index2 = i !== l - 1 ? val.lastIndexOf(",") : val.length;
+    parsedVal = val.substr(0, index2);
     obj[key] = isNaN(parsedVal) ? parsedVal.replace(_quotesExp, "").trim() : +parsedVal;
-    key = val.substr(index + 1).trim();
+    key = val.substr(index2 + 1).trim();
   }
   return obj;
 }, _valueInParentheses = function _valueInParentheses2(value) {
@@ -1760,7 +1760,7 @@ _setDefaults$1(Timeline.prototype, {
   _forcing: 0
 });
 var _addComplexStringPropTween = function _addComplexStringPropTween2(target, prop, start, end, setter, stringFilter, funcParam) {
-  var pt = new PropTween(this._pt, target, prop, 0, 1, _renderComplexString, null, setter), index = 0, matchIndex = 0, result, startNums, color, endNum, chunk, startNum, hasRandom, a;
+  var pt = new PropTween(this._pt, target, prop, 0, 1, _renderComplexString, null, setter), index2 = 0, matchIndex = 0, result, startNums, color, endNum, chunk, startNum, hasRandom, a;
   pt.b = start;
   pt.e = end;
   start += "";
@@ -1777,7 +1777,7 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
   startNums = start.match(_complexStringNumExp) || [];
   while (result = _complexStringNumExp.exec(end)) {
     endNum = result[0];
-    chunk = end.substring(index, result.index);
+    chunk = end.substring(index2, result.index);
     if (color) {
       color = (color + 1) % 5;
     } else if (chunk.substr(-5) === "rgba(") {
@@ -1793,18 +1793,18 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
         c: endNum.charAt(1) === "=" ? _parseRelative(startNum, endNum) - startNum : parseFloat(endNum) - startNum,
         m: color && color < 4 ? Math.round : 0
       };
-      index = _complexStringNumExp.lastIndex;
+      index2 = _complexStringNumExp.lastIndex;
     }
   }
-  pt.c = index < end.length ? end.substring(index, end.length) : "";
+  pt.c = index2 < end.length ? end.substring(index2, end.length) : "";
   pt.fp = funcParam;
   if (_relExp.test(end) || hasRandom) {
     pt.e = 0;
   }
   this._pt = pt;
   return pt;
-}, _addPropTween = function _addPropTween2(target, prop, start, end, index, targets, modifier, stringFilter, funcParam, optional) {
-  _isFunction$1(end) && (end = end(index || 0, target, targets));
+}, _addPropTween = function _addPropTween2(target, prop, start, end, index2, targets, modifier, stringFilter, funcParam, optional) {
+  _isFunction$1(end) && (end = end(index2 || 0, target, targets));
   var currentValue = target[prop], parsedStart = start !== "get" ? start : !_isFunction$1(currentValue) ? currentValue : funcParam ? target[prop.indexOf("set") || !_isFunction$1(target["get" + prop.substr(3)]) ? prop : "get" + prop.substr(3)](funcParam) : target[prop](), setter = !_isFunction$1(currentValue) ? _setterPlain : funcParam ? _setterFuncWithParam : _setterFunc, pt;
   if (_isString$1(end)) {
     if (~end.indexOf("random(")) {
@@ -1827,19 +1827,19 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
     !currentValue && !(prop in target) && _missingPlugin(prop, end);
     return _addComplexStringPropTween.call(this, target, prop, parsedStart, end, setter, stringFilter || _config.stringFilter, funcParam);
   }
-}, _processVars = function _processVars2(vars, index, target, targets, tween) {
-  _isFunction$1(vars) && (vars = _parseFuncOrString(vars, tween, index, target, targets));
+}, _processVars = function _processVars2(vars, index2, target, targets, tween) {
+  _isFunction$1(vars) && (vars = _parseFuncOrString(vars, tween, index2, target, targets));
   if (!_isObject$1(vars) || vars.style && vars.nodeType || _isArray(vars) || _isTypedArray(vars)) {
-    return _isString$1(vars) ? _parseFuncOrString(vars, tween, index, target, targets) : vars;
+    return _isString$1(vars) ? _parseFuncOrString(vars, tween, index2, target, targets) : vars;
   }
   var copy = {}, p;
   for (p in vars) {
-    copy[p] = _parseFuncOrString(vars[p], tween, index, target, targets);
+    copy[p] = _parseFuncOrString(vars[p], tween, index2, target, targets);
   }
   return copy;
-}, _checkPlugin = function _checkPlugin2(property, vars, tween, index, target, targets) {
+}, _checkPlugin = function _checkPlugin2(property, vars, tween, index2, target, targets) {
   var plugin, pt, ptLookup, i;
-  if (_plugins[property] && (plugin = new _plugins[property]()).init(target, plugin.rawVars ? vars[property] : _processVars(vars[property], index, target, targets, tween), tween, index, targets) !== false) {
+  if (_plugins[property] && (plugin = new _plugins[property]()).init(target, plugin.rawVars ? vars[property] : _processVars(vars[property], index2, target, targets, tween), tween, index2, targets) !== false) {
     tween._pt = pt = new PropTween(tween._pt, target, property, 0, 1, plugin.render, plugin, 0, plugin.priority);
     if (tween !== _quickTween) {
       ptLookup = tween._ptLookup[tween._targets.indexOf(target)];
@@ -1851,7 +1851,7 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
   }
   return plugin;
 }, _overwritingTween, _forceAllPropTweens, _initTween = function _initTween2(tween, time, tTime) {
-  var vars = tween.vars, ease = vars.ease, startAt = vars.startAt, immediateRender = vars.immediateRender, lazy = vars.lazy, onUpdate = vars.onUpdate, runBackwards = vars.runBackwards, yoyoEase = vars.yoyoEase, keyframes = vars.keyframes, autoRevert = vars.autoRevert, dur = tween._dur, prevStartAt = tween._startAt, targets = tween._targets, parent = tween.parent, fullTargets = parent && parent.data === "nested" ? parent.vars.targets : targets, autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites$1, tl = tween.timeline, reverseEase = vars.easeReverse || yoyoEase, cleanVars, i, p, pt, target, hasPriority, gsData, harness, plugin, ptLookup, index, harnessVars, overwritten;
+  var vars = tween.vars, ease = vars.ease, startAt = vars.startAt, immediateRender = vars.immediateRender, lazy = vars.lazy, onUpdate = vars.onUpdate, runBackwards = vars.runBackwards, yoyoEase = vars.yoyoEase, keyframes = vars.keyframes, autoRevert = vars.autoRevert, dur = tween._dur, prevStartAt = tween._startAt, targets = tween._targets, parent = tween.parent, fullTargets = parent && parent.data === "nested" ? parent.vars.targets : targets, autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites$1, tl = tween.timeline, reverseEase = vars.easeReverse || yoyoEase, cleanVars, i, p, pt, target, hasPriority, gsData, harness, plugin, ptLookup, index2, harnessVars, overwritten;
   tl && (!keyframes || !ease) && (ease = "none");
   tween._ease = _parseEase(ease, _defaults$1.ease);
   tween._rEase = reverseEase && (_parseEase(reverseEase) || tween._ease);
@@ -1923,8 +1923,8 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
       gsData = target._gsap || _harness(targets)[i]._gsap;
       tween._ptLookup[i] = ptLookup = {};
       _lazyLookup[gsData.id] && _lazyTweens.length && _lazyRender();
-      index = fullTargets === targets ? i : fullTargets.indexOf(target);
-      if (harness && (plugin = new harness()).init(target, harnessVars || cleanVars, tween, index, fullTargets) !== false) {
+      index2 = fullTargets === targets ? i : fullTargets.indexOf(target);
+      if (harness && (plugin = new harness()).init(target, harnessVars || cleanVars, tween, index2, fullTargets) !== false) {
         tween._pt = pt = new PropTween(tween._pt, target, plugin.name, 0, 1, plugin.render, plugin, 0, plugin.priority);
         plugin._props.forEach(function(name) {
           ptLookup[name] = pt;
@@ -1933,10 +1933,10 @@ var _addComplexStringPropTween = function _addComplexStringPropTween2(target, pr
       }
       if (!harness || harnessVars) {
         for (p in cleanVars) {
-          if (_plugins[p] && (plugin = _checkPlugin(p, cleanVars, tween, index, target, fullTargets))) {
+          if (_plugins[p] && (plugin = _checkPlugin(p, cleanVars, tween, index2, target, fullTargets))) {
             plugin.priority && (hasPriority = 1);
           } else {
-            ptLookup[p] = pt = _addPropTween.call(tween, target, p, "get", cleanVars[p], index, fullTargets, 0, vars.stringFilter);
+            ptLookup[p] = pt = _addPropTween.call(tween, target, p, "get", cleanVars[p], index2, fullTargets, 0, vars.stringFilter);
           }
         }
       }
@@ -2911,12 +2911,12 @@ var _getPluginPropTween = function _getPluginPropTween2(plugin, prop) {
 };
 var gsap$2 = _gsap.registerPlugin({
   name: "attr",
-  init: function init(target, vars, tween, index, targets) {
+  init: function init(target, vars, tween, index2, targets) {
     var p, pt, v;
     this.tween = tween;
     for (p in vars) {
       v = target.getAttribute(p) || "";
-      pt = this.add(target, "setAttribute", (v || 0) + "", vars[p], index, targets, 0, 0, p);
+      pt = this.add(target, "setAttribute", (v || 0) + "", vars[p], index2, targets, 0, 0, p);
       pt.op = p;
       pt.b = v;
       this._props.push(p);
@@ -3240,7 +3240,7 @@ var _win$2, _doc$2, _docElement, _pluginInitted, _tempDiv, _recentSetterPlugin, 
       start = _getComputedProperty(target, "borderTopColor");
     }
   }
-  var pt = new PropTween(this._pt, target.style, prop, 0, 1, _renderComplexString), index = 0, matchIndex = 0, a, result, startValues, startNum, color, startValue, endValue, endNum, chunk, endUnit, startUnit, endValues;
+  var pt = new PropTween(this._pt, target.style, prop, 0, 1, _renderComplexString), index2 = 0, matchIndex = 0, a, result, startValues, startNum, color, startValue, endValue, endNum, chunk, endUnit, startUnit, endValues;
   pt.b = start;
   pt.e = end;
   start += "";
@@ -3263,7 +3263,7 @@ var _win$2, _doc$2, _docElement, _pluginInitted, _tempDiv, _recentSetterPlugin, 
   if (endValues.length) {
     while (result = _numWithUnitExp.exec(end)) {
       endValue = result[0];
-      chunk = end.substring(index, result.index);
+      chunk = end.substring(index2, result.index);
       if (color) {
         color = (color + 1) % 5;
       } else if (chunk.substr(-5) === "rgba(" || chunk.substr(-5) === "hsla(") {
@@ -3275,10 +3275,10 @@ var _win$2, _doc$2, _docElement, _pluginInitted, _tempDiv, _recentSetterPlugin, 
         endValue.charAt(1) === "=" && (endValue = _parseRelative(startNum, endValue) + startUnit);
         endNum = parseFloat(endValue);
         endUnit = endValue.substr((endNum + "").length);
-        index = _numWithUnitExp.lastIndex - endUnit.length;
+        index2 = _numWithUnitExp.lastIndex - endUnit.length;
         if (!endUnit) {
           endUnit = endUnit || _config.units[prop] || startUnit;
-          if (index === end.length) {
+          if (index2 === end.length) {
             end += endUnit;
             pt.e += endUnit;
           }
@@ -3296,7 +3296,7 @@ var _win$2, _doc$2, _docElement, _pluginInitted, _tempDiv, _recentSetterPlugin, 
         };
       }
     }
-    pt.c = index < end.length ? end.substring(index, end.length) : "";
+    pt.c = index2 < end.length ? end.substring(index2, end.length) : "";
   } else {
     pt.r = prop === "display" && end === "none" ? _renderNonTweeningValueOnlyAtEnd : _renderNonTweeningValue;
   }
@@ -3780,11 +3780,11 @@ var _win$2, _doc$2, _docElement, _pluginInitted, _tempDiv, _recentSetterPlugin, 
   }
   _assign(endCache, startCache);
 };
-_forEachName("padding,margin,Width,Radius", function(name, index) {
-  var t = "Top", r = "Right", b = "Bottom", l = "Left", props = (index < 3 ? [t, r, b, l] : [t + l, t + r, b + r, b + l]).map(function(side) {
-    return index < 2 ? name + side : "border" + side + name;
+_forEachName("padding,margin,Width,Radius", function(name, index2) {
+  var t = "Top", r = "Right", b = "Bottom", l = "Left", props = (index2 < 3 ? [t, r, b, l] : [t + l, t + r, b + r, b + l]).map(function(side) {
+    return index2 < 2 ? name + side : "border" + side + name;
   });
-  _specialProps[index > 1 ? "border" + name : name] = function(plugin, target, property, endValue, tween) {
+  _specialProps[index2 > 1 ? "border" + name : name] = function(plugin, target, property, endValue, tween) {
     var a, vars;
     if (arguments.length < 4) {
       a = props.map(function(prop) {
@@ -3807,7 +3807,7 @@ var CSSPlugin = {
   targetTest: function targetTest(target) {
     return target.style && target.nodeType;
   },
-  init: function init3(target, vars, tween, index, targets) {
+  init: function init3(target, vars, tween, index2, targets) {
     var props = this._props, style = target.style, startAt = tween.vars.startAt, startValue, endValue, endNum, startNum, type, specialProp, p, startUnit, endUnit, relative, isTransformRelated, transformPropTween, cache, smooth, hasPriority, inlineProps, finalTransformValue;
     _pluginInitted || _initCore$1();
     this.styles = this.styles || _getStyleSaver(target);
@@ -3818,13 +3818,13 @@ var CSSPlugin = {
         continue;
       }
       endValue = vars[p];
-      if (_plugins[p] && _checkPlugin(p, vars, tween, index, target, targets)) {
+      if (_plugins[p] && _checkPlugin(p, vars, tween, index2, target, targets)) {
         continue;
       }
       type = typeof endValue;
       specialProp = _specialProps[p];
       if (type === "function") {
-        endValue = endValue.call(tween, index, target, targets);
+        endValue = endValue.call(tween, index2, target, targets);
         type = typeof endValue;
       }
       if (type === "string" && ~endValue.indexOf("random(")) {
@@ -3841,12 +3841,12 @@ var CSSPlugin = {
           endUnit = getUnit(endValue);
           endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit);
         }
-        this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p);
+        this.add(style, "setProperty", startValue, endValue, index2, targets, 0, 0, p);
         props.push(p);
         inlineProps.push(p, 0, style[p]);
       } else if (type !== "undefined") {
         if (startAt && p in startAt) {
-          startValue = typeof startAt[p] === "function" ? startAt[p].call(tween, index, target, targets) : startAt[p];
+          startValue = typeof startAt[p] === "function" ? startAt[p].call(tween, index2, target, targets) : startAt[p];
           _isString$1(startValue) && ~startValue.indexOf("random(") && (startValue = _replaceRandom(startValue));
           getUnit(startValue + "") || startValue === "auto" || (startValue += _config.units[p] || getUnit(_get(target, p)) || "");
           (startValue + "").charAt(1) === "=" && (startValue = _get(target, p));
@@ -3943,7 +3943,7 @@ var CSSPlugin = {
           }
         } else if (!(p in style)) {
           if (p in target) {
-            this.add(target, p, startValue || target[p], relative ? relative + endValue : endValue, index, targets);
+            this.add(target, p, startValue || target[p], relative ? relative + endValue : endValue, index2, targets);
           } else if (p !== "parseTransform") {
             _missingPlugin(p, endValue);
             continue;
@@ -4002,6 +4002,15 @@ _forEachName("x,y,z,top,right,bottom,left,width,height,fontSize,padding,margin,p
 gsap$2.registerPlugin(CSSPlugin);
 var gsapWithCSS = gsap$2.registerPlugin(CSSPlugin) || gsap$2;
 gsapWithCSS.core.Tween;
+const index = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  CSSPlugin,
+  TimelineLite: Timeline,
+  TimelineMax: Timeline,
+  TweenLite: Tween,
+  default: gsapWithCSS,
+  gsap: gsapWithCSS
+});
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -4015,12 +4024,12 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   return Constructor;
 }
-var gsap$1, _coreInitted$1, _win$1, _doc$1, _docEl$1, _body$1, _isTouch, _pointerType, ScrollTrigger$1, _root$1, _normalizer$1, _eventTypes, _context$1, _getGSAP$1 = function _getGSAP() {
+var gsap$1, _coreInitted$1, _win$1, _doc$1, _docEl$1, _body$1, _isTouch, _pointerType, ScrollTrigger$2, _root$1, _normalizer$1, _eventTypes, _context$1, _getGSAP$1 = function _getGSAP() {
   return gsap$1 || typeof window !== "undefined" && (gsap$1 = window.gsap) && gsap$1.registerPlugin && gsap$1;
 }, _startup$1 = 1, _observers = [], _scrollers = [], _proxies = [], _getTime$1 = Date.now, _bridge = function _bridge2(name, value) {
   return value;
 }, _integrate = function _integrate2() {
-  var core = ScrollTrigger$1.core, data = core.bridge || {}, scrollers = core._scrollers, proxies = core._proxies;
+  var core = ScrollTrigger$2.core, data = core.bridge || {}, scrollers = core._scrollers, proxies = core._proxies;
   scrollers.push.apply(scrollers, _scrollers);
   proxies.push.apply(proxies, _proxies);
   _scrollers = scrollers;
@@ -4138,8 +4147,8 @@ var gsap$1, _coreInitted$1, _win$1, _doc$1, _docEl$1, _body$1, _isTouch, _pointe
   var max = Math.max.apply(Math, a), min = Math.min.apply(Math, a);
   return Math.abs(max) >= Math.abs(min) ? max : min;
 }, _setScrollTrigger = function _setScrollTrigger2() {
-  ScrollTrigger$1 = gsap$1.core.globals().ScrollTrigger;
-  ScrollTrigger$1 && ScrollTrigger$1.core && _integrate();
+  ScrollTrigger$2 = gsap$1.core.globals().ScrollTrigger;
+  ScrollTrigger$2 && ScrollTrigger$2.core && _integrate();
 }, _initCore2 = function _initCore3(core) {
   gsap$1 = core || _getGSAP$1();
   if (!_coreInitted$1 && gsap$1 && typeof document !== "undefined" && document.body) {
@@ -4159,7 +4168,7 @@ var gsap$1, _coreInitted$1, _win$1, _doc$1, _docEl$1, _body$1, _isTouch, _pointe
     }, 500);
     _coreInitted$1 = 1;
   }
-  ScrollTrigger$1 || _setScrollTrigger();
+  ScrollTrigger$2 || _setScrollTrigger();
   return _coreInitted$1;
 };
 _horizontal.op = _vertical;
@@ -4171,7 +4180,7 @@ var Observer = /* @__PURE__ */ (function() {
   var _proto = Observer2.prototype;
   _proto.init = function init4(vars) {
     _coreInitted$1 || _initCore2(gsap$1) || console.warn("Please gsap.registerPlugin(Observer)");
-    ScrollTrigger$1 || _setScrollTrigger();
+    ScrollTrigger$2 || _setScrollTrigger();
     var tolerance = vars.tolerance, dragMinimum = vars.dragMinimum, type = vars.type, target = vars.target, lineHeight = vars.lineHeight, debounce = vars.debounce, preventDefault = vars.preventDefault, onStop = vars.onStop, onStopDelay = vars.onStopDelay, ignore = vars.ignore, wheelSpeed = vars.wheelSpeed, event = vars.event, onDragStart = vars.onDragStart, onDragEnd = vars.onDragEnd, onDrag = vars.onDrag, onPress = vars.onPress, onRelease = vars.onRelease, onRight = vars.onRight, onLeft = vars.onLeft, onUp = vars.onUp, onDown = vars.onDown, onChangeX = vars.onChangeX, onChangeY = vars.onChangeY, onChange = vars.onChange, onToggleX = vars.onToggleX, onToggleY = vars.onToggleY, onHover = vars.onHover, onHoverEnd = vars.onHoverEnd, onMove = vars.onMove, ignoreCheck = vars.ignoreCheck, isNormalizer = vars.isNormalizer, onGestureStart = vars.onGestureStart, onGestureEnd = vars.onGestureEnd, onWheel = vars.onWheel, onEnable = vars.onEnable, onDisable = vars.onDisable, onClick = vars.onClick, scrollSpeed = vars.scrollSpeed, capture = vars.capture, allowClicks = vars.allowClicks, lockAxis = vars.lockAxis, onLockAxis = vars.onLockAxis;
     this.target = target = _getTarget(target) || _docEl$1;
     this.vars = vars;
@@ -4226,9 +4235,9 @@ var Observer = /* @__PURE__ */ (function() {
         wheeled = false;
       }
       id = 0;
-    }, onDelta = function onDelta2(x, y, index) {
-      deltaX[index] += x;
-      deltaY[index] += y;
+    }, onDelta = function onDelta2(x, y, index2) {
+      deltaX[index2] += x;
+      deltaY[index2] += y;
       self._vx.update(x);
       self._vy.update(y);
       debounce ? id || (id = requestAnimationFrame(update)) : update();
@@ -6205,7 +6214,13 @@ ScrollTrigger.core = {
   }
 };
 _getGSAP2() && gsap.registerPlugin(ScrollTrigger);
+const ScrollTrigger$1 = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  ScrollTrigger,
+  default: ScrollTrigger
+});
 export {
-  ScrollTrigger as S,
-  gsapWithCSS as g
+  ScrollTrigger$1 as S,
+  gsapWithCSS as g,
+  index as i
 };

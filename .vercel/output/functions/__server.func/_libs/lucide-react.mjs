@@ -75,17 +75,17 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$q = [
+const __iconNode$o = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$q);
-const __iconNode$p = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$o);
+const __iconNode$n = [
   ["path", { d: "M7 7h10v10", key: "1tivn9" }],
   ["path", { d: "M7 17 17 7", key: "1vkiza" }]
 ];
-const ArrowUpRight = createLucideIcon("arrow-up-right", __iconNode$p);
-const __iconNode$o = [
+const ArrowUpRight = createLucideIcon("arrow-up-right", __iconNode$n);
+const __iconNode$m = [
   ["path", { d: "M12 8V4H8", key: "hb8ula" }],
   ["rect", { width: "16", height: "12", x: "4", y: "8", rx: "2", key: "enze0r" }],
   ["path", { d: "M2 14h2", key: "vft8re" }],
@@ -93,22 +93,9 @@ const __iconNode$o = [
   ["path", { d: "M15 13v2", key: "1xurst" }],
   ["path", { d: "M9 13v2", key: "rq6x2g" }]
 ];
-const Bot = createLucideIcon("bot", __iconNode$o);
-const __iconNode$n = [
-  ["path", { d: "M3 3v16a2 2 0 0 0 2 2h16", key: "c24i48" }],
-  ["path", { d: "M18 17V9", key: "2bz60n" }],
-  ["path", { d: "M13 17V5", key: "1frdt8" }],
-  ["path", { d: "M8 17v-3", key: "17ska0" }]
-];
-const ChartColumn = createLucideIcon("chart-column", __iconNode$n);
-const __iconNode$m = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$m);
-const __iconNode$l = [
-  ["path", { d: "m18 16 4-4-4-4", key: "1inbqp" }],
-  ["path", { d: "m6 8-4 4 4 4", key: "15zrgr" }],
-  ["path", { d: "m14.5 4-5 16", key: "e7oirm" }]
-];
-const CodeXml = createLucideIcon("code-xml", __iconNode$l);
+const Bot = createLucideIcon("bot", __iconNode$m);
+const __iconNode$l = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$l);
 const __iconNode$k = [
   [
     "path",
@@ -339,7 +326,5 @@ export {
   MapPin as f,
   Send as g,
   ArrowRight as h,
-  CodeXml as i,
-  ChartColumn as j,
-  ShieldCheck as k
+  ShieldCheck as i
 };

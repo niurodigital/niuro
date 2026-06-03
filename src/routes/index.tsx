@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
   Code2,
@@ -15,8 +13,6 @@ import {
   Rocket,
 } from "lucide-react";
 import { useScrambleText } from "@/hooks/useScrambleText";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,78 +64,94 @@ function Home() {
   const scramble2 = useScrambleText({ text: "smart digital solutions", delay: 600, speed: 50 });
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Hero Elements Entrance
-      gsap.from(".hero-badge", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
 
-      gsap.from(".hero-desc", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 1.2,
-        ease: "power3.out",
-      });
+    const initGsap = async () => {
+      const gsapModule = (await import("gsap")).default as any;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsapModule.registerPlugin(ScrollTrigger);
 
-      gsap.from(".hero-btns", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 1.5,
-        ease: "power3.out",
-      });
+      if (cancelled) return;
 
-      gsap.from(".hero-stats div", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        delay: 1.8,
-        ease: "power3.out",
-      });
+      ctx = gsapModule.context(() => {
+        // Hero Elements Entrance
+        gsapModule.from(".hero-badge", {
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
 
-      // Services entrance
-      gsap.from(".service-card-horiz", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.6,
-        scrollTrigger: {
-          trigger: ".services-slide",
-          start: "top 80%",
-        }
-      });
+        gsapModule.from(".hero-desc", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 1.2,
+          ease: "power3.out",
+        });
 
-      // Why Us entrance
-      gsap.from(".why-card-horiz", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 0.6,
-        scrollTrigger: {
-          trigger: ".why-slide",
-          start: "top 80%",
-        }
-      });
+        gsapModule.from(".hero-btns", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 1.5,
+          ease: "power3.out",
+        });
 
-      // CTA ScrollTrigger
-      gsap.from(".cta-box", {
-        scrollTrigger: {
-          trigger: ".cta-section",
-          start: "top 85%",
-        },
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
-      });
+        gsapModule.from(".hero-stats div", {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          delay: 1.8,
+          ease: "power3.out",
+        });
 
-    }, containerRef);
-    return () => ctx.revert();
+        // Services entrance
+        gsapModule.from(".service-card-horiz", {
+          y: 40,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: ".services-slide",
+            start: "top 80%",
+          },
+        });
+
+        // Why Us entrance
+        gsapModule.from(".why-card-horiz", {
+          y: 40,
+          opacity: 0,
+          stagger: 0.08,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: ".why-slide",
+            start: "top 80%",
+          },
+        });
+
+        // CTA ScrollTrigger
+        gsapModule.from(".cta-box", {
+          scrollTrigger: {
+            trigger: ".cta-section",
+            start: "top 85%",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      }, containerRef);
+    };
+
+    initGsap();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, []);
 
   return (

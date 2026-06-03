@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { S as Section, R as Reveal, a as SectionHeader } from "./Section-DzcRWewI.mjs";
+import { S as Section, R as Reveal, a as SectionHeader } from "./Section-DpXDcXiL.mjs";
 import { T as Target, E as Eye, H as Heart } from "../_libs/lucide-react.mjs";
 import "../_libs/framer-motion.mjs";
 import "../_libs/motion-dom.mjs";
@@ -7,7 +7,6 @@ import "../_libs/motion-utils.mjs";
 function About() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Section, { className: "pt-28", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Reveal, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto max-w-3xl text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block rounded-full glass px-4 py-1 text-xs uppercase tracking-widest text-primary", children: "About us" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "mt-6 text-5xl font-bold md:text-6xl", children: [
         "We build the ",
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient", children: "digital backbone" }),

@@ -5,26 +5,53 @@ export function VantaBackground() {
   const myRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!vantaEffect && window.VANTA && window.VANTA.NET) {
-      setVantaEffect(
-        window.VANTA.NET({
-          el: myRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          color: 0x3feaff,
-          backgroundColor: 0x050505, // Deep dark background
-          points: 15.00,
-          maxDistance: 25.00,
-          spacing: 20.00
-        })
-      );
+    if (typeof window === "undefined") return;
+
+    let intervalId: number | undefined;
+    let cancelled = false;
+
+    const initVanta = () => {
+      if (cancelled || vantaEffect || !myRef.current) return;
+      if (window.VANTA?.NET) {
+        setVantaEffect(
+          window.VANTA.NET({
+            el: myRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0x3feaff,
+            backgroundColor: 0x050505,
+            points: 15.0,
+            maxDistance: 25.0,
+            spacing: 20.0,
+          })
+        );
+      }
+    };
+
+    initVanta();
+
+    if (!window.VANTA?.NET) {
+      intervalId = window.setInterval(() => {
+        if (window.VANTA?.NET) {
+          initVanta();
+          if (intervalId) {
+            window.clearInterval(intervalId);
+            intervalId = undefined;
+          }
+        }
+      }, 250);
     }
+
     return () => {
+      cancelled = true;
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);

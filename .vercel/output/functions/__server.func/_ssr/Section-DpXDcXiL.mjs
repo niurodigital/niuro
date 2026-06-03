@@ -21,8 +21,7 @@ function SectionHeader({
   subtitle
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(Reveal, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto mb-14 max-w-2xl text-center", children: [
-    eyebrow && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "inline-block rounded-full glass px-4 py-1 text-xs font-medium uppercase tracking-widest text-primary", children: eyebrow }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "mt-4 text-4xl font-bold md:text-5xl", children: title }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-4xl font-bold md:text-5xl", children: title }),
     subtitle && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-4 text-muted-foreground", children: subtitle })
   ] }) });
 }

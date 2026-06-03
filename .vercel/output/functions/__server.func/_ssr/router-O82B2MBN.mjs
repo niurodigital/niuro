@@ -2,7 +2,7 @@ import { Q as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { Q as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
 import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent, d as useRouterState } from "../_libs/tanstack__react-router.mjs";
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
-import { g as gsapWithCSS, S as ScrollTrigger } from "../_libs/gsap.mjs";
+import { g as gsapWithCSS } from "../_libs/gsap.mjs";
 import { X, M as Menu, F as Facebook, L as Linkedin, a as Mail, P as Phone, b as MessageCircle } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";
@@ -17,7 +17,7 @@ import "crypto";
 import "async_hooks";
 import "stream";
 import "../_libs/isbot.mjs";
-const appCss = "/assets/styles-Cy-5Nwzy.css";
+const appCss = "/assets/styles-DTqLYrS3.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -230,27 +230,48 @@ function VantaBackground() {
   const [vantaEffect, setVantaEffect] = reactExports.useState(null);
   const myRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    if (!vantaEffect && window.VANTA && window.VANTA.NET) {
-      setVantaEffect(
-        window.VANTA.NET({
-          el: myRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200,
-          minWidth: 200,
-          scale: 1,
-          scaleMobile: 1,
-          color: 4188927,
-          backgroundColor: 328965,
-          // Deep dark background
-          points: 15,
-          maxDistance: 25,
-          spacing: 20
-        })
-      );
+    if (typeof window === "undefined") return;
+    let intervalId;
+    let cancelled = false;
+    const initVanta = () => {
+      if (cancelled || vantaEffect || !myRef.current) return;
+      if (window.VANTA?.NET) {
+        setVantaEffect(
+          window.VANTA.NET({
+            el: myRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200,
+            minWidth: 200,
+            scale: 1,
+            scaleMobile: 1,
+            color: 4188927,
+            backgroundColor: 328965,
+            points: 15,
+            maxDistance: 25,
+            spacing: 20
+          })
+        );
+      }
+    };
+    initVanta();
+    if (!window.VANTA?.NET) {
+      intervalId = window.setInterval(() => {
+        if (window.VANTA?.NET) {
+          initVanta();
+          if (intervalId) {
+            window.clearInterval(intervalId);
+            intervalId = void 0;
+          }
+        }
+      }, 250);
     }
     return () => {
+      cancelled = true;
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);
@@ -268,6 +289,55 @@ function VantaBackground() {
       }
     }
   );
+}
+function CustomCursor() {
+  const outerRef = reactExports.useRef(null);
+  const innerRef = reactExports.useRef(null);
+  const activeRef = reactExports.useRef(false);
+  const positionRef = reactExports.useRef({ x: 0, y: 0 });
+  reactExports.useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return;
+    }
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner) {
+      return;
+    }
+    const updatePosition = (clientX, clientY) => {
+      positionRef.current = { x: clientX, y: clientY };
+      const scale = activeRef.current ? 1.25 : 1;
+      outer.style.transform = `translate3d(${clientX - 18}px, ${clientY - 18}px, 0) scale(${scale})`;
+      inner.style.transform = `translate3d(${clientX - 4}px, ${clientY - 4}px, 0) scale(${scale})`;
+    };
+    const handleMove = (event) => {
+      updatePosition(event.clientX, event.clientY);
+    };
+    const handleDown = () => {
+      activeRef.current = true;
+      updatePosition(positionRef.current.x, positionRef.current.y);
+      outer.classList.add("cursor-active");
+      inner.classList.add("cursor-active");
+    };
+    const handleUp = () => {
+      activeRef.current = false;
+      updatePosition(positionRef.current.x, positionRef.current.y);
+      outer.classList.remove("cursor-active");
+      inner.classList.remove("cursor-active");
+    };
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerdown", handleDown);
+    window.addEventListener("pointerup", handleUp);
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerdown", handleDown);
+      window.removeEventListener("pointerup", handleUp);
+    };
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: outerRef, className: "custom-cursor-outer" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: innerRef, className: "custom-cursor-inner" })
+  ] });
 }
 function NotFoundComponent() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-md text-center", children: [
@@ -383,6 +453,7 @@ function RootShell({ children }) {
 function RootComponent() {
   const { queryClient } = Route$7.useRouteContext();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(QueryClientProvider, { client: queryClient, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CustomCursor, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(VantaBackground, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(SiteHeader, {}),
@@ -409,7 +480,7 @@ ${urls}
     }
   }
 });
-const $$splitComponentImporter$5 = () => import("./services-DrGL_S_S.mjs");
+const $$splitComponentImporter$5 = () => import("./services-CofJWghj.mjs");
 const Route$5 = createFileRoute("/services")({
   head: () => ({
     meta: [{
@@ -434,7 +505,7 @@ const Route$5 = createFileRoute("/services")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-const $$splitComponentImporter$4 = () => import("./pricing-BnKZYvT9.mjs");
+const $$splitComponentImporter$4 = () => import("./pricing-BSmsUXYb.mjs");
 const Route$4 = createFileRoute("/pricing")({
   head: () => ({
     meta: [{
@@ -459,7 +530,7 @@ const Route$4 = createFileRoute("/pricing")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./portfolio-D3kbQYzE.mjs");
+const $$splitComponentImporter$3 = () => import("./portfolio-sgyceYvS.mjs");
 const Route$3 = createFileRoute("/portfolio")({
   head: () => ({
     meta: [{
@@ -484,7 +555,7 @@ const Route$3 = createFileRoute("/portfolio")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./contact-EtmGNFqc.mjs");
+const $$splitComponentImporter$2 = () => import("./contact-DuKvaLkc.mjs");
 const Route$2 = createFileRoute("/contact")({
   head: () => ({
     meta: [{
@@ -509,7 +580,7 @@ const Route$2 = createFileRoute("/contact")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./about-CiU_ZDkB.mjs");
+const $$splitComponentImporter$1 = () => import("./about-BtZvnP73.mjs");
 const Route$1 = createFileRoute("/about")({
   head: () => ({
     meta: [{
@@ -534,8 +605,7 @@ const Route$1 = createFileRoute("/about")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-CvQ4kA9a.mjs");
-gsapWithCSS.registerPlugin(ScrollTrigger);
+const $$splitComponentImporter = () => import("./index-wr7qOF-3.mjs");
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{
