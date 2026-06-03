@@ -68,10 +68,17 @@ function Portfolio() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredProjects.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.06}>
-            <a href={p.link || "#"} className="group relative block overflow-hidden rounded-2xl glass p-6 transition-all hover:-translate-y-1 hover:shadow-glow">
+            <a
+              href={p.link || "#"}
+              className="group relative block overflow-hidden rounded-2xl glass p-6 transition-all hover:-translate-y-1 hover:shadow-glow"
+            >
               <div className="relative mb-5 aspect-video overflow-hidden rounded-lg bg-gradient-hero">
                 {p.image ? (
-                  <img src={p.image} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-5xl font-bold text-gradient">
                     {p.name
