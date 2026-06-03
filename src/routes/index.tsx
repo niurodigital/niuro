@@ -29,9 +29,9 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Next-Gen Intelligent Solutions for Business Optimization.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://niurodigital.lk/" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://niurodigital.lk/" }],
   }),
   component: Home,
 });

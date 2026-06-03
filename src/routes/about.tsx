@@ -16,9 +16,9 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content: "Sri Lankan software studio building next-gen intelligent solutions.",
       },
-      { property: "og:url", content: "/about" },
+      { property: "og:url", content: "https://niurodigital.lk/about" },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://niurodigital.lk/about" }],
   }),
   component: About,
 });

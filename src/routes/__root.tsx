@@ -92,7 +92,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Websites, Mobile Apps, Business Software & Digital Innovation.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://niurodigital.lk/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://niurodigital.lk/og-image.png" },
+      { name: "theme-color", content: "#000000" },
     ],
     links: [
       {

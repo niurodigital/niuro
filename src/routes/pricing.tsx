@@ -13,9 +13,9 @@ export const Route = createFileRoute("/pricing")({
       },
       { property: "og:title", content: "Pricing — NIURO Digital" },
       { property: "og:description", content: "Transparent LKR pricing for modern web products." },
-      { property: "og:url", content: "/pricing" },
+      { property: "og:url", content: "https://niurodigital.lk/pricing" },
     ],
-    links: [{ rel: "canonical", href: "/pricing" }],
+    links: [{ rel: "canonical", href: "https://niurodigital.lk/pricing" }],
   }),
   component: Pricing,
 });

@@ -14,9 +14,9 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:title", content: "Contact — NIURO Digital" },
       { property: "og:description", content: "Let's build something together." },
-      { property: "og:url", content: "/contact" },
+      { property: "og:url", content: "https://niurodigital.lk/contact" },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: "https://niurodigital.lk/contact" }],
   }),
   component: Contact,
 });
