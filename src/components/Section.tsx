@@ -30,12 +30,7 @@ export function SectionHeader({
   return (
     <Reveal>
       <div className="mx-auto mb-14 max-w-2xl text-center">
-        {eyebrow && (
-          <span className="inline-block rounded-full glass px-4 py-1 text-xs font-medium uppercase tracking-widest text-primary">
-            {eyebrow}
-          </span>
-        )}
-        <h2 className="mt-4 text-4xl font-bold md:text-5xl">{title}</h2>
+        <h2 className="text-4xl font-bold md:text-5xl">{title}</h2>
         {subtitle && <p className="mt-4 text-muted-foreground">{subtitle}</p>}
       </div>
     </Reveal>

@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/SiteHeader";
 import { SiteFooter } from "../components/SiteFooter";
+import { VantaBackground } from "../components/VantaBackground";
+import { CustomCursor } from "../components/CustomCursor";
 
 function NotFoundComponent() {
   return (
@@ -116,6 +118,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
     ],
+    scripts: [
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
+      },
+      {
+        src: "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js",
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -142,6 +152,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <CustomCursor />
+      <VantaBackground />
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">

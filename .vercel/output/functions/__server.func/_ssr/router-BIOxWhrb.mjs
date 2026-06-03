@@ -2,6 +2,7 @@ import { Q as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { Q as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
 import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent, d as useRouterState } from "../_libs/tanstack__react-router.mjs";
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
+import { g as gsapWithCSS, S as ScrollTrigger } from "../_libs/gsap.mjs";
 import { X, M as Menu, F as Facebook, L as Linkedin, a as Mail, P as Phone, b as MessageCircle } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";
@@ -16,7 +17,7 @@ import "crypto";
 import "async_hooks";
 import "stream";
 import "../_libs/isbot.mjs";
-const appCss = "/assets/styles-qhWF1RZ8.css";
+const appCss = "/assets/styles-Cy-5Nwzy.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -45,10 +46,62 @@ const nav = [
 function SiteHeader() {
   const [open, setOpen] = reactExports.useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "sticky top-0 z-50 glass", children: [
+  const headerRef = reactExports.useRef(null);
+  const navLinksRef = reactExports.useRef([]);
+  reactExports.useEffect(() => {
+    const ctx = gsapWithCSS.context(() => {
+      gsapWithCSS.from(headerRef.current, {
+        y: -100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+      gsapWithCSS.from(".logo-anim", {
+        scale: 0,
+        opacity: 0,
+        duration: 1.2,
+        delay: 0.2,
+        ease: "back.out(1.7)"
+      });
+      gsapWithCSS.from(navLinksRef.current, {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        delay: 0.5,
+        ease: "power2.out"
+      });
+    }, headerRef);
+    return () => ctx.revert();
+  }, []);
+  const handleNavEnter = (e) => {
+    gsapWithCSS.to(e.currentTarget, { y: -3, scale: 1.05, duration: 0.3, ease: "back.out(2)" });
+  };
+  const handleNavLeave = (e) => {
+    gsapWithCSS.to(e.currentTarget, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" });
+  };
+  const handleBtnEnter = (e) => {
+    gsapWithCSS.to(e.currentTarget, {
+      scale: 1.05,
+      boxShadow: "0 0 30px oklch(0.72 0.18 235 / 0.8)",
+      y: -3,
+      duration: 0.4,
+      ease: "back.out(2)"
+    });
+  };
+  const handleBtnLeave = (e) => {
+    gsapWithCSS.to(e.currentTarget, {
+      scale: 1,
+      boxShadow: "0 0 40px oklch(0.72 0.18 235 / 0.4)",
+      y: 0,
+      duration: 0.4,
+      ease: "back.out(2)"
+    });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { ref: headerRef, className: "sticky top-0 z-50 glass", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto flex max-w-7xl items-center justify-between px-6 py-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logo, alt: "NIURO Digital", className: "h-9 w-9 rounded-md object-cover" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-3 logo-anim", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logo, alt: "NIURO Digital", className: "h-9 w-9 rounded-md object-cover drop-shadow-md" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-lg font-bold tracking-tight", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-foreground", children: "NIURO" }),
           " ",
@@ -56,13 +109,16 @@ function SiteHeader() {
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: "hidden items-center gap-1 md:flex", children: [
-        nav.map((n) => {
+        nav.map((n, i) => {
           const active = n.to === "/" ? path === "/" : path.startsWith(n.to);
           return /* @__PURE__ */ jsxRuntimeExports.jsx(
             Link,
             {
               to: n.to,
-              className: `rounded-md px-3 py-2 text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`,
+              ref: (el) => navLinksRef.current[i] = el,
+              onMouseEnter: handleNavEnter,
+              onMouseLeave: handleNavLeave,
+              className: `inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`,
               children: n.label
             },
             n.to
@@ -72,7 +128,10 @@ function SiteHeader() {
           Link,
           {
             to: "/contact",
-            className: "ml-3 rounded-md bg-gradient-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-105",
+            ref: (el) => navLinksRef.current[nav.length] = el,
+            onMouseEnter: handleBtnEnter,
+            onMouseLeave: handleBtnLeave,
+            className: "ml-3 inline-flex items-center justify-center rounded-md bg-gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow",
             children: "Get a Quote"
           }
         )
@@ -167,6 +226,49 @@ function SiteFooter() {
     ] })
   ] });
 }
+function VantaBackground() {
+  const [vantaEffect, setVantaEffect] = reactExports.useState(null);
+  const myRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    if (!vantaEffect && window.VANTA && window.VANTA.NET) {
+      setVantaEffect(
+        window.VANTA.NET({
+          el: myRef.current,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200,
+          minWidth: 200,
+          scale: 1,
+          scaleMobile: 1,
+          color: 4188927,
+          backgroundColor: 328965,
+          // Deep dark background
+          points: 15,
+          maxDistance: 25,
+          spacing: 20
+        })
+      );
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      ref: myRef,
+      style: {
+        position: "fixed",
+        zIndex: -1,
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%"
+      }
+    }
+  );
+}
 function NotFoundComponent() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-md text-center", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-7xl font-bold text-foreground", children: "404" }),
@@ -254,6 +356,14 @@ const Route$7 = createRootRouteWithContext()({
         rel: "stylesheet",
         href: appCss
       }
+    ],
+    scripts: [
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+      },
+      {
+        src: "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"
+      }
     ]
   }),
   shellComponent: RootShell,
@@ -272,11 +382,14 @@ function RootShell({ children }) {
 }
 function RootComponent() {
   const { queryClient } = Route$7.useRouteContext();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(SiteHeader, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(SiteFooter, {})
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(QueryClientProvider, { client: queryClient, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(VantaBackground, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SiteHeader, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SiteFooter, {})
+    ] })
+  ] });
 }
 const BASE_URL = "https://niurodigital.lk";
 const paths = ["/", "/about", "/services", "/pricing", "/portfolio", "/contact"];
@@ -421,7 +534,8 @@ const Route$1 = createFileRoute("/about")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-j5MKkNOe.mjs");
+const $$splitComponentImporter = () => import("./index-CvQ4kA9a.mjs");
+gsapWithCSS.registerPlugin(ScrollTrigger);
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{
@@ -429,19 +543,6 @@ const Route = createFileRoute("/")({
     }, {
       name: "description",
       content: "Websites, Mobile Apps, Business Software & Digital Innovation. Transform your business with next-gen intelligent solutions."
-    }, {
-      property: "og:title",
-      content: "NIURO Digital"
-    }, {
-      property: "og:description",
-      content: "Next-Gen Intelligent Solutions for Business Optimization."
-    }, {
-      property: "og:url",
-      content: "https://niurodigital.lk/"
-    }],
-    links: [{
-      rel: "canonical",
-      href: "https://niurodigital.lk/"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter, "component")

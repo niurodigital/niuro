@@ -97,7 +97,6 @@ function Pricing() {
   return (
     <Section className="pt-28">
       <SectionHeader
-        eyebrow="Pricing"
         title="Simple, transparent pricing in LKR"
         subtitle="Start small and scale. No surprises."
       />

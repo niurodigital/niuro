@@ -120,13 +120,9 @@
   }
 
   body {
-    background: var(--color-background);
+    background: transparent;
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, oklch(0.45 0.22 265 / 0.35), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 100%, oklch(0.72 0.18 235 / 0.15), transparent);
-    background-attachment: fixed;
     min-height: 100vh;
   }
 
@@ -167,6 +163,47 @@
   .glow-border {
     position: relative;
   }
+
+  .custom-cursor-outer,
+  .custom-cursor-inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.12s ease-out, opacity 0.25s ease-out;
+  }
+
+  .custom-cursor-outer {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.04);
+    opacity: 0.9;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.95);
+    opacity: 0.95;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor-outer.cursor-active,
+  .custom-cursor-inner.cursor-active {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: none;
+    }
+  }
   .glow-border::before {
     content: "";
     position: absolute;
@@ -182,3 +219,4 @@
     pointer-events: none;
   }
 }
+

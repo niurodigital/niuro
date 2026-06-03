@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Section, Reveal } from "@/components/Section";
 import { Phone, Mail, MessageCircle, MapPin, Send } from "lucide-react";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
 export const Route = createFileRoute("/contact")({
@@ -30,7 +30,7 @@ const schema = z.object({
 function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const parsed = schema.safeParse({
@@ -38,14 +38,16 @@ function Contact() {
       email: fd.get("email"),
       message: fd.get("message"),
     });
+
     if (!parsed.success) {
       const errs: Record<string, string> = {};
-      parsed.error.issues.forEach((i) => {
-        errs[i.path[0] as string] = i.message;
+      parsed.error.issues.forEach((issue) => {
+        errs[issue.path[0] as string] = issue.message;
       });
       setErrors(errs);
       return;
     }
+
     setErrors({});
     const text = `Name: ${parsed.data.name}\nEmail: ${parsed.data.email}\n\n${parsed.data.message}`;
     window.location.href = `https://wa.me/94769626733?text=${encodeURIComponent(text)}`;
@@ -70,75 +72,128 @@ function Contact() {
 
   return (
     <Section className="pt-28">
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid gap-12 xl:grid-cols-[1.15fr_0.85fr] items-start">
         <Reveal>
-          <span className="inline-block rounded-full glass px-4 py-1 text-xs uppercase tracking-widest text-primary">
-            Contact
-          </span>
-          <h1 className="mt-6 text-5xl font-bold md:text-6xl">
-            Let's build <span className="text-gradient">something brilliant.</span>
-          </h1>
-          <p className="mt-4 text-muted-foreground">
-            Tell us about your project — we'll respond within one business day.
-          </p>
-          <div className="mt-10 space-y-4">
-            {contacts.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                className="flex items-center gap-4 rounded-xl glass p-4 transition-all hover:shadow-glow"
-              >
-                <div className="rounded-lg bg-gradient-primary p-2.5 text-primary-foreground shadow-glow">
-                  <c.icon size={18} />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                    {c.label}
+          <div className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+            <div className="max-w-2xl">
+              <p className="mb-4 text-xs uppercase tracking-[0.35em] text-primary-foreground/80">
+                Start your digital journey
+              </p>
+              <h1 className="text-5xl font-bold leading-tight text-white sm:text-6xl">
+                Let's build <span className="text-gradient">something brilliant.</span>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+                {"Share your vision and we’ll turn it into a standout digital experience with thoughtful " +
+                  "design, clear strategy, and fast execution."}
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {contacts.map((contact) => (
+                <a
+                  key={contact.label}
+                  href={contact.href}
+                  className="group flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary/5"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-primary/80 text-white shadow-lg shadow-primary/20 transition-colors group-hover:from-primary/90 group-hover:to-primary">
+                    <contact.icon size={20} />
                   </div>
-                  <div className="font-medium">{c.value}</div>
-                </div>
-              </a>
-            ))}
+                  <div>
+                    <p className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground">
+                      {contact.label}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white">{contact.value}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <form onSubmit={onSubmit} className="space-y-5 rounded-2xl glass p-8">
-            <div>
-              <label className="text-sm font-medium">Name</label>
-              <input
-                name="name"
-                maxLength={100}
-                className="mt-2 w-full rounded-lg border border-border bg-background/50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name}</p>}
+          <form
+            onSubmit={onSubmit}
+            noValidate
+            className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl"
+          >
+            <div className="mb-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary-foreground/80">
+                Let’s talk
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-white">Send us a message</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-400">
+                {"Use WhatsApp to start a quick conversation or leave the details below and we’ll " +
+                  "reach out shortly."}
+              </p>
             </div>
-            <div>
-              <label className="text-sm font-medium">Email</label>
-              <input
-                name="email"
-                type="email"
-                maxLength={255}
-                className="mt-2 w-full rounded-lg border border-border bg-background/50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+
+            <div className="space-y-5">
+              <div>
+                <label htmlFor="name" className="text-sm font-medium text-slate-100">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  maxLength={100}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  className="mt-2 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  placeholder="Your name"
+                />
+                {errors.name && (
+                  <p id="name-error" className="mt-2 text-xs text-destructive">
+                    {errors.name}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="email" className="text-sm font-medium text-slate-100">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  maxLength={255}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  className="mt-2 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  placeholder="you@example.com"
+                />
+                {errors.email && (
+                  <p id="email-error" className="mt-2 text-xs text-destructive">
+                    {errors.email}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="message" className="text-sm font-medium text-slate-100">
+                  Project details
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  maxLength={1000}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  className="mt-2 min-h-42.5 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
+                  placeholder="Tell us what you want to build, your budget, or your timeline."
+                />
+                {errors.message && (
+                  <p id="message-error" className="mt-2 text-xs text-destructive">
+                    {errors.message}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-3xl bg-linear-to-r from-primary to-cyan-500 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                Send via WhatsApp <Send size={16} />
+              </button>
             </div>
-            <div>
-              <label className="text-sm font-medium">Project details</label>
-              <textarea
-                name="message"
-                rows={5}
-                maxLength={1000}
-                className="mt-2 w-full rounded-lg border border-border bg-background/50 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
-            </div>
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
-            >
-              Send via WhatsApp <Send size={16} />
-            </button>
           </form>
         </Reveal>
       </div>

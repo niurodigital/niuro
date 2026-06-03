@@ -29,9 +29,6 @@ function About() {
       <Section className="pt-28">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-block rounded-full glass px-4 py-1 text-xs uppercase tracking-widest text-primary">
-              About us
-            </span>
             <h1 className="mt-6 text-5xl font-bold md:text-6xl">
               We build the <span className="text-gradient">digital backbone</span> of modern Sri
               Lankan business.

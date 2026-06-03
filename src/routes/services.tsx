@@ -53,7 +53,6 @@ function Services() {
   return (
     <Section className="pt-28">
       <SectionHeader
-        eyebrow="Services"
         title="Everything you need to ship software"
         subtitle="Pick a single service or let us own your whole digital stack."
       />
