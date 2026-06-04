@@ -9,10 +9,14 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "Transparent LKR pricing for websites, business sites and premium web applications.",
+          "Straightforward LKR pricing for premium websites, apps, and business systems with strong package differentiation.",
       },
       { property: "og:title", content: "Pricing — NIURO Digital" },
-      { property: "og:description", content: "Transparent LKR pricing for modern web products." },
+      {
+        property: "og:description",
+        content:
+          "Premium digital packages built for Sri Lankan businesses with transparent pricing and clear value tiers.",
+      },
       { property: "og:url", content: "https://niurodigital.lk/pricing" },
     ],
     links: [{ rel: "canonical", href: "https://niurodigital.lk/pricing" }],
@@ -23,115 +27,254 @@ export const Route = createFileRoute("/pricing")({
 const tiers = [
   {
     name: "Starter Website",
-    price: "LKR 8,000",
+    price: "LKR 12,000",
+    oldPrice: "LKR 15,000",
     featured: false,
+    description: "Perfect for startups and small businesses.",
     features: [
       "Up to 5 Pages",
-      "Mobile Friendly Design",
+      "Mobile Responsive Design",
       "Contact Form",
-      "Google Maps Setup",
-      "WhatsApp Chat Button",
-      "Basic Google Search Setup",
+      "WhatsApp Integration",
+      "Google Maps Integration",
+      "Basic SEO Setup",
+      "Social Media Links",
+      "1 Revision Round",
     ],
-    domain: "Additional LKR 4,000/year (.lk)",
+    footer: "Domain Registration (.lk) – LKR 4,000/year",
+    extra: ["Hosting from LKR 6,000/year"],
   },
   {
     name: "Business Website",
-    price: "LKR 15,000",
+    price: "LKR 25,000",
+    oldPrice: "LKR 35,000",
     featured: true,
+    description: "Most popular choice for growing businesses.",
+    badge: "Save LKR 10,000",
     features: [
       "Up to 15 Pages",
-      "Update Content Yourself",
-      "News or Blog Section",
+      "Admin Panel to update content",
+      "Blog / News Section",
       "Photo Gallery",
-      "Optimized for Google Search",
-      "Social Media Links",
+      "Advanced SEO Setup",
+      "Speed Optimization",
+      "Social Media Integration",
+      "Google Analytics Setup",
+      "3 Revision Rounds",
     ],
-    domain: "Additional LKR 4,000/year (.lk)",
+    footer: "Domain Registration (.lk) – LKR 4,000/year",
+    free: ["1 Month Technical Support"],
+    note: "Less than LKR 70/day for the first year",
   },
+  {
+    name: "Premium Business Website",
+    price: "LKR 45,000",
+    featured: false,
+    description: "For established brands that want premium polish.",
+    features: [
+      "Unlimited Pages",
+      "Premium UI/UX Design",
+      "Booking Forms",
+      "Customer Inquiry Management",
+      "Advanced SEO",
+      "Analytics Dashboard",
+      "Lead Generation Setup",
+      "Performance Optimization",
+      "Priority Support",
+    ],
+    footer: "Domain Registration (.lk) – LKR 4,000/year",
+    free: ["Hosting Setup", "3 Months Support"],
+  },
+];
+
+const packages = [
   {
     name: "Custom Web System",
-    price: "From LKR 40,000",
-    featured: false,
+    price: "From LKR 50,000",
+    description: "Custom software built specifically for your business.",
     features: [
-      "Fast & Modern Interface",
-      "Secure Data Processing",
-      "User Accounts & Login",
-      "Business Dashboard",
-      "Custom Reports",
-      "Built Exactly for Your Needs",
+      "User Authentication",
+      "Dashboards",
+      "Reports",
+      "Role Management",
+      "Database Design",
+      "API Development",
+      "Security Features",
+      "Scalable Architecture",
     ],
-    domain: "Tailored hosting & domain",
   },
   {
-    name: "Mobile App",
-    price: "Custom Quote",
-    featured: false,
+    name: "Mobile App Development",
+    price: "From LKR 80,000",
+    description: "Android & iOS applications with modern UI and support.",
     features: [
-      "For Both Android & iPhone",
-      "Smooth & Fast Experience",
-      "Custom Business Solutions",
-      "Connects to Your Systems",
-      "Publishing to App Stores",
+      "Modern UI Design",
+      "API Integration",
+      "Push Notifications",
+      "App Store Publishing",
+      "Google Play Publishing",
       "Ongoing Support",
     ],
-    domain: "Tailored to your business needs",
   },
   {
     name: "Desktop Software",
-    price: "Custom Quote",
-    featured: false,
+    price: "From LKR 60,000",
+    description: "Business desktop applications for workflow, POS, and management.",
     features: [
-      "Reliable Computer Software",
-      "Point of Sale (POS) Systems",
-      "Business Management Tools",
-      "Connect to Printers/Scanners",
-      "Secure Offline Data Storage",
-      "Full Staff Training",
+      "POS Systems",
+      "Inventory Management",
+      "Accounting Tools",
+      "Barcode Integration",
+      "Printer Integration",
+      "Offline Data Storage",
     ],
-    domain: "Tailored to your business needs",
   },
+];
+
+const addOns = [
+  { label: ".lk Domain", value: "LKR 4,000/year" },
+  { label: "Hosting Setup", value: "LKR 6,000/year" },
+  { label: "Business Email Setup", value: "LKR 2,500" },
+  { label: "Additional Page", value: "LKR 1,500" },
+  { label: "Logo Design", value: "LKR 5,000" },
+  { label: "SEO Package", value: "LKR 10,000" },
+];
+
+const guarantees = [
+  "Free bug fixes for 30 days",
+  "Mobile friendly guarantee",
+  "SEO ready launch",
+  "No hidden charges",
 ];
 
 function Pricing() {
   return (
-    <Section className="pt-28">
+    <Section id="pricing" className="pt-28">
       <SectionHeader
-        title="Simple, transparent pricing in LKR"
-        subtitle="Start small and scale. No surprises."
+        title="Pricing built for Sri Lankan businesses"
+        subtitle="Premium website, app and business system packages with clear LKR pricing and honest value tiers."
       />
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-6">
-        {tiers.map((t, i) => (
-          <div key={t.name} className={`md:col-span-2 ${i === 3 ? "md:col-start-2" : ""}`}>
-            <Reveal delay={i * 0.08}>
-              <div
-                className={`relative flex h-full flex-col rounded-2xl p-8 transition-all hover:-translate-y-1 ${t.featured ? "glow-border bg-gradient-to-b from-secondary/30 to-transparent shadow-glow" : "glass"}`}
-              >
-                {t.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-gradient-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                    <Sparkles size={12} /> Most popular
-                  </span>
-                )}
-                <h3 className="text-lg font-semibold">{t.name}</h3>
-                <div className="mt-4 text-4xl font-bold text-gradient">{t.price}</div>
-                <ul className="mt-6 flex-1 space-y-3">
-                  {t.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check size={14} className="text-primary" /> {f}
+
+      <div className="grid gap-6 xl:grid-cols-3 mb-10">
+        {tiers.map((tier, index) => (
+          <Reveal key={tier.name} delay={index * 0.08}>
+            <div
+              className={`relative rounded-3xl glass border border-white/10 p-8 transition-all hover:-translate-y-1 hover:shadow-glow ${tier.featured ? "ring-1 ring-primary/20 bg-white/10" : "bg-white/5"
+                }`}
+            >
+              {tier.featured && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 rounded-full bg-gradient-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
+                  <Sparkles size={14} /> Most popular
+                </span>
+              )}
+
+              <div className="flex flex-col gap-3">
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground">{tier.name}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{tier.description}</p>
+                </div>
+                <div className="flex flex-wrap items-end gap-3">
+                  {tier.oldPrice ? (
+                    <span className="text-sm text-muted-foreground line-through">
+                      {tier.oldPrice}
+                    </span>
+                  ) : null}
+                  <span className="text-4xl font-bold text-foreground">{tier.price}</span>
+                </div>
+                <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check size={16} className="mt-1 text-primary" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 text-xs text-muted-foreground">{t.domain}</p>
-                <Link
-                  to="/contact"
-                  className={`mt-6 inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold transition-all ${t.featured ? "bg-gradient-primary text-primary-foreground shadow-glow hover:scale-105" : "glass hover:text-primary"}`}
-                >
-                  Get started
-                </Link>
               </div>
-            </Reveal>
-          </div>
+
+              <div className="mt-6 space-y-3 text-sm text-muted-foreground">
+                <p>{tier.footer}</p>
+                {tier.extra && <p>Optional: {tier.extra.join(" • ")}</p>}
+                {tier.free && <p className="text-foreground">Free: {tier.free.join(" • ")}</p>}
+                {tier.note && <p className="text-sm text-muted-foreground">{tier.note}</p>}
+              </div>
+
+              <Link
+                to={`/contact?package=${encodeURIComponent(tier.name)}`}
+                className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:scale-105`}
+              >
+                Contact us
+              </Link>
+            </div>
+          </Reveal>
         ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-3 mb-10">
+        {packages.map((pkg) => (
+          <Reveal key={pkg.name}>
+            <div className="rounded-3xl glass border border-white/10 p-8 shadow-glow hover:-translate-y-1 transition-all">
+              <h4 className="text-lg font-semibold text-foreground">{pkg.name}</h4>
+              <p className="mt-2 text-sm text-muted-foreground">{pkg.description}</p>
+              <div className="mt-4 text-3xl font-bold text-foreground">{pkg.price}</div>
+              <ul className="mt-6 flex-1 space-y-3 text-sm text-muted-foreground">
+                {pkg.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3">
+                    <Check size={16} className="mt-1 text-primary" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to={`/contact?package=${encodeURIComponent(pkg.name)}`}
+                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:scale-105"
+              >
+                Contact us
+              </Link>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+        <Reveal>
+          <div className="rounded-3xl glass border border-white/10 p-8 shadow-glow">
+            <h3 className="text-2xl font-semibold text-foreground">
+              Add-ons for launch and growth
+            </h3>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Boost value with clear extras that customers can add to their package.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {addOns.map((addOn) => (
+                <Link
+                  key={addOn.label}
+                  to={`/contact?package=Add-on: ${encodeURIComponent(addOn.label)}`}
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 transition-all hover:border-primary/30 hover:bg-primary/5 hover:-translate-y-0.5"
+                >
+                  <p className="font-medium text-foreground">{addOn.label}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{addOn.value}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="rounded-3xl glass border border-white/10 p-8 shadow-glow">
+            <h3 className="text-2xl font-semibold text-foreground">Trust signals</h3>
+            <p className="mt-3 text-sm text-muted-foreground">
+              These guarantees make the pricing page feel more confident and reduce buyer hesitation.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+              {guarantees.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1 h-2.5 w-2.5 rounded-full bg-primary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
       </div>
     </Section>
   );

@@ -1,15 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CustomCursor() {
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(false);
   const positionRef = useRef({ x: 0, y: 0 });
+  const [isSupported, setIsSupported] = useState(false);
 
   useEffect(() => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    // Only initialize on devices with hover and fine pointer (exclude touch)
+    const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const isTouchDevice = window.matchMedia("(hover: none) or (pointer: coarse)").matches;
+    
+    if (!supportsHover || isTouchDevice) {
+      setIsSupported(false);
       return;
     }
+    
+    setIsSupported(true);
 
     const outer = outerRef.current;
     const inner = innerRef.current;
@@ -51,12 +59,12 @@ export function CustomCursor() {
       window.removeEventListener("pointerdown", handleDown);
       window.removeEventListener("pointerup", handleUp);
     };
-  }, []);
+  }, [isSupported]);
 
-  return (
+  return isSupported ? (
     <>
       <div ref={outerRef} className="custom-cursor-outer" />
       <div ref={innerRef} className="custom-cursor-inner" />
     </>
-  );
+  ) : null;
 }

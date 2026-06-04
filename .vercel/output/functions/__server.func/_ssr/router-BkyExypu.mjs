@@ -17,7 +17,7 @@ import "crypto";
 import "async_hooks";
 import "stream";
 import "../_libs/isbot.mjs";
-const appCss = "/assets/styles-DTqLYrS3.css";
+const appCss = "/assets/styles-e8KItcEf.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -48,6 +48,12 @@ function SiteHeader() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const headerRef = reactExports.useRef(null);
   const navLinksRef = reactExports.useRef([]);
+  const [isTouchDevice, setIsTouchDevice] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const hasTouchOrCoarse = window.matchMedia("(hover: none) or (pointer: coarse)").matches;
+    setIsTouchDevice(!hasFinePointer || hasTouchOrCoarse);
+  }, []);
   reactExports.useEffect(() => {
     const ctx = gsapWithCSS.context(() => {
       gsapWithCSS.from(headerRef.current, {
@@ -73,14 +79,17 @@ function SiteHeader() {
       });
     }, headerRef);
     return () => ctx.revert();
-  }, []);
+  }, [isTouchDevice]);
   const handleNavEnter = (e) => {
+    if (isTouchDevice) return;
     gsapWithCSS.to(e.currentTarget, { y: -3, scale: 1.05, duration: 0.3, ease: "back.out(2)" });
   };
   const handleNavLeave = (e) => {
+    if (isTouchDevice) return;
     gsapWithCSS.to(e.currentTarget, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" });
   };
   const handleBtnEnter = (e) => {
+    if (isTouchDevice) return;
     gsapWithCSS.to(e.currentTarget, {
       scale: 1.05,
       boxShadow: "0 0 30px oklch(0.72 0.18 235 / 0.8)",
@@ -90,6 +99,7 @@ function SiteHeader() {
     });
   };
   const handleBtnLeave = (e) => {
+    if (isTouchDevice) return;
     gsapWithCSS.to(e.currentTarget, {
       scale: 1,
       boxShadow: "0 0 40px oklch(0.72 0.18 235 / 0.4)",
@@ -99,16 +109,16 @@ function SiteHeader() {
     });
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { ref: headerRef, className: "sticky top-0 z-50 glass", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto flex max-w-7xl items-center justify-between px-6 py-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-3 logo-anim", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logo, alt: "NIURO Digital", className: "h-9 w-9 rounded-md object-cover drop-shadow-md" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-lg font-bold tracking-tight", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-2 sm:gap-3 logo-anim flex-shrink-0", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logo, alt: "NIURO Digital", className: "h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-base sm:text-lg font-bold tracking-tight hidden xs:inline-block", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-foreground", children: "NIURO" }),
           " ",
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient", children: "Digital" })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: "hidden items-center gap-1 md:flex", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: "hidden items-center gap-0.5 md:gap-1 md:flex", children: [
         nav.map((n, i) => {
           const active = n.to === "/" ? path === "/" : path.startsWith(n.to);
           return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -118,7 +128,7 @@ function SiteHeader() {
               ref: (el) => navLinksRef.current[i] = el,
               onMouseEnter: handleNavEnter,
               onMouseLeave: handleNavLeave,
-              className: `inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`,
+              className: `inline-flex items-center justify-center rounded-md px-2 sm:px-3 py-2 text-xs sm:text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`,
               children: n.label
             },
             n.to
@@ -131,7 +141,7 @@ function SiteHeader() {
             ref: (el) => navLinksRef.current[nav.length] = el,
             onMouseEnter: handleBtnEnter,
             onMouseLeave: handleBtnLeave,
-            className: "ml-3 inline-flex items-center justify-center rounded-md bg-gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow",
+            className: "ml-2 sm:ml-3 inline-flex items-center justify-center rounded-md bg-gradient-primary px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-primary-foreground shadow-glow",
             children: "Get a Quote"
           }
         )
@@ -139,23 +149,34 @@ function SiteHeader() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
-          className: "md:hidden text-foreground",
+          className: "md:hidden text-foreground p-2 -mr-2",
           onClick: () => setOpen(!open),
           "aria-label": "Menu",
-          children: open ? /* @__PURE__ */ jsxRuntimeExports.jsx(X, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, {})
+          children: open ? /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 20 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { size: 20 })
         }
       )
     ] }),
-    open && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "md:hidden border-t border-border bg-background/95 px-6 py-4", children: nav.map((n) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Link,
-      {
-        to: n.to,
-        onClick: () => setOpen(false),
-        className: "block py-2 text-sm text-muted-foreground hover:text-primary",
-        children: n.label
-      },
-      n.to
-    )) })
+    open && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "md:hidden border-t border-border bg-background/95 px-4 sm:px-6 py-3", children: [
+      nav.map((n) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Link,
+        {
+          to: n.to,
+          onClick: () => setOpen(false),
+          className: "block py-2 text-sm text-muted-foreground hover:text-primary",
+          children: n.label
+        },
+        n.to
+      )),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Link,
+        {
+          to: "/contact",
+          onClick: () => setOpen(false),
+          className: "mt-3 block w-full rounded-md bg-gradient-primary px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground shadow-glow",
+          children: "Get a Quote"
+        }
+      )
+    ] })
   ] });
 }
 function SiteFooter() {
@@ -295,10 +316,15 @@ function CustomCursor() {
   const innerRef = reactExports.useRef(null);
   const activeRef = reactExports.useRef(false);
   const positionRef = reactExports.useRef({ x: 0, y: 0 });
+  const [isSupported, setIsSupported] = reactExports.useState(false);
   reactExports.useEffect(() => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const isTouchDevice = window.matchMedia("(hover: none) or (pointer: coarse)").matches;
+    if (!supportsHover || isTouchDevice) {
+      setIsSupported(false);
       return;
     }
+    setIsSupported(true);
     const outer = outerRef.current;
     const inner = innerRef.current;
     if (!outer || !inner) {
@@ -333,11 +359,11 @@ function CustomCursor() {
       window.removeEventListener("pointerdown", handleDown);
       window.removeEventListener("pointerup", handleUp);
     };
-  }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+  }, [isSupported]);
+  return isSupported ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: outerRef, className: "custom-cursor-outer" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: innerRef, className: "custom-cursor-inner" })
-  ] });
+  ] }) : null;
 }
 function NotFoundComponent() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-md text-center", children: [
@@ -519,20 +545,20 @@ const Route$5 = createFileRoute("/services")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-const $$splitComponentImporter$4 = () => import("./pricing-BSmsUXYb.mjs");
+const $$splitComponentImporter$4 = () => import("./pricing-DYAi9yhn.mjs");
 const Route$4 = createFileRoute("/pricing")({
   head: () => ({
     meta: [{
       title: "Pricing — NIURO Digital"
     }, {
       name: "description",
-      content: "Transparent LKR pricing for websites, business sites and premium web applications."
+      content: "Straightforward LKR pricing for premium websites, apps, and business systems with strong package differentiation."
     }, {
       property: "og:title",
       content: "Pricing — NIURO Digital"
     }, {
       property: "og:description",
-      content: "Transparent LKR pricing for modern web products."
+      content: "Premium digital packages built for Sri Lankan businesses with transparent pricing and clear value tiers."
     }, {
       property: "og:url",
       content: "https://niurodigital.lk/pricing"
@@ -569,7 +595,7 @@ const Route$3 = createFileRoute("/portfolio")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./contact-DuKvaLkc.mjs");
+const $$splitComponentImporter$2 = () => import("./contact-C1QkemLW.mjs");
 const Route$2 = createFileRoute("/contact")({
   head: () => ({
     meta: [{
@@ -592,7 +618,10 @@ const Route$2 = createFileRoute("/contact")({
       href: "https://niurodigital.lk/contact"
     }]
   }),
-  component: lazyRouteComponent($$splitComponentImporter$2, "component")
+  component: lazyRouteComponent($$splitComponentImporter$2, "component"),
+  validateSearch: (search) => ({
+    package: search.package || void 0
+  })
 });
 const $$splitComponentImporter$1 = () => import("./about-BtZvnP73.mjs");
 const Route$1 = createFileRoute("/about")({
@@ -619,7 +648,7 @@ const Route$1 = createFileRoute("/about")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-wr7qOF-3.mjs");
+const $$splitComponentImporter = () => import("./index-Vkt7sEUk.mjs");
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{

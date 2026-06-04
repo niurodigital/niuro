@@ -18,6 +18,14 @@ export function SiteHeader() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const headerRef = useRef<HTMLElement>(null);
   const navLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    // Detect if device supports hover/fine pointer
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const hasTouchOrCoarse = window.matchMedia("(hover: none) or (pointer: coarse)").matches;
+    setIsTouchDevice(!hasFinePointer || hasTouchOrCoarse);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,17 +55,20 @@ export function SiteHeader() {
     }, headerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isTouchDevice]);
 
   const handleNavEnter = (e: React.MouseEvent) => {
+    if (isTouchDevice) return;
     gsap.to(e.currentTarget, { y: -3, scale: 1.05, duration: 0.3, ease: "back.out(2)" });
   };
 
   const handleNavLeave = (e: React.MouseEvent) => {
+    if (isTouchDevice) return;
     gsap.to(e.currentTarget, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" });
   };
 
   const handleBtnEnter = (e: React.MouseEvent) => {
+    if (isTouchDevice) return;
     gsap.to(e.currentTarget, { 
       scale: 1.05, 
       boxShadow: "0 0 30px oklch(0.72 0.18 235 / 0.8)", 
@@ -68,6 +79,7 @@ export function SiteHeader() {
   };
 
   const handleBtnLeave = (e: React.MouseEvent) => {
+    if (isTouchDevice) return;
     gsap.to(e.currentTarget, { 
       scale: 1, 
       boxShadow: "0 0 40px oklch(0.72 0.18 235 / 0.4)", 
@@ -79,15 +91,15 @@ export function SiteHeader() {
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 glass">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link to="/" className="flex items-center gap-3 logo-anim">
-          <img src={logo} alt="NIURO Digital" className="h-9 w-9 rounded-md object-cover drop-shadow-md" />
-          <span className="font-display text-lg font-bold tracking-tight">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 logo-anim flex-shrink-0">
+          <img src={logo} alt="NIURO Digital" className="h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md" />
+          <span className="font-display text-base sm:text-lg font-bold tracking-tight hidden xs:inline-block">
             <span className="text-foreground">NIURO</span>{" "}
             <span className="text-gradient">Digital</span>
           </span>
         </Link>
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-0.5 md:gap-1 md:flex">
           {nav.map((n, i) => {
             const active = n.to === "/" ? path === "/" : path.startsWith(n.to);
             return (
@@ -97,7 +109,7 @@ export function SiteHeader() {
                 ref={(el) => (navLinksRef.current[i] = el)}
                 onMouseEnter={handleNavEnter}
                 onMouseLeave={handleNavLeave}
-                className={`inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`}
+                className={`inline-flex items-center justify-center rounded-md px-2 sm:px-3 py-2 text-xs sm:text-sm transition-colors hover:text-primary ${active ? "text-primary" : "text-muted-foreground"}`}
               >
                 {n.label}
               </Link>
@@ -108,21 +120,21 @@ export function SiteHeader() {
             ref={(el) => (navLinksRef.current[nav.length] = el)}
             onMouseEnter={handleBtnEnter}
             onMouseLeave={handleBtnLeave}
-            className="ml-3 inline-flex items-center justify-center rounded-md bg-gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow"
+            className="ml-2 sm:ml-3 inline-flex items-center justify-center rounded-md bg-gradient-primary px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-primary-foreground shadow-glow"
           >
             Get a Quote
           </Link>
         </nav>
         <button
-          className="md:hidden text-foreground"
+          className="md:hidden text-foreground p-2 -mr-2"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
         >
-          {open ? <X /> : <Menu />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95 px-6 py-4">
+        <div className="md:hidden border-t border-border bg-background/95 px-4 sm:px-6 py-3">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -133,6 +145,13 @@ export function SiteHeader() {
               {n.label}
             </Link>
           ))}
+          <Link
+            to="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-3 block w-full rounded-md bg-gradient-primary px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground shadow-glow"
+          >
+            Get a Quote
+          </Link>
         </div>
       )}
     </header>

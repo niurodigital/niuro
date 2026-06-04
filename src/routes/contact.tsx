@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { Section, Reveal } from "@/components/Section";
 import { Phone, Mail, MessageCircle, MapPin, Send } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { z } from "zod";
 
 export const Route = createFileRoute("/contact")({
@@ -19,6 +19,9 @@ export const Route = createFileRoute("/contact")({
     links: [{ rel: "canonical", href: "https://niurodigital.lk/contact" }],
   }),
   component: Contact,
+  validateSearch: (search: Record<string, unknown>) => ({
+    package: (search.package as string) || undefined,
+  }),
 });
 
 const schema = z.object({
@@ -28,7 +31,15 @@ const schema = z.object({
 });
 
 function Contact() {
+  const search = useSearch({ from: "/contact" }) as { package?: string };
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (search?.package) {
+      setMessage(`Hi, I'm interested in the ${search.package} package. \n\nI'd like to discuss: `);
+    }
+  }, [search?.package]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -176,6 +187,8 @@ function Contact() {
                   name="message"
                   rows={6}
                   maxLength={1000}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   aria-describedby={errors.message ? "message-error" : undefined}
                   className="mt-2 min-h-42.5 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
                   placeholder="Tell us what you want to build, your budget, or your timeline."

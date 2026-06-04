@@ -204,6 +204,28 @@
       cursor: none;
     }
   }
+
+  /* Hide cursor elements on touch devices */
+  @media (hover: none) or (pointer: coarse) {
+    .custom-cursor-outer,
+    .custom-cursor-inner {
+      display: none !important;
+    }
+    
+    body {
+      cursor: auto;
+    }
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) or (pointer: coarse) {
+    button:hover,
+    a:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+
   .glow-border::before {
     content: "";
     position: absolute;

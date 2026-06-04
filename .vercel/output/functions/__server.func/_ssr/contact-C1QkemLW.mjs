@@ -1,7 +1,21 @@
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
+import { e as useSearch } from "../_libs/tanstack__react-router.mjs";
 import { S as Section, R as Reveal } from "./Section-DpXDcXiL.mjs";
 import { P as Phone, b as MessageCircle, a as Mail, f as MapPin, g as Send } from "../_libs/lucide-react.mjs";
 import { o as objectType, s as stringType } from "../_libs/zod.mjs";
+import "../_libs/tanstack__router-core.mjs";
+import "../_libs/tanstack__history.mjs";
+import "../_libs/cookie-es.mjs";
+import "../_libs/seroval.mjs";
+import "../_libs/seroval-plugins.mjs";
+import "node:stream/web";
+import "node:stream";
+import "../_libs/react-dom.mjs";
+import "util";
+import "crypto";
+import "async_hooks";
+import "stream";
+import "../_libs/isbot.mjs";
 import "../_libs/framer-motion.mjs";
 import "../_libs/motion-dom.mjs";
 import "../_libs/motion-utils.mjs";
@@ -11,7 +25,18 @@ const schema = objectType({
   message: stringType().trim().min(10, "Tell us a little more").max(1e3)
 });
 function Contact() {
+  const search = useSearch({
+    from: "/contact"
+  });
   const [errors, setErrors] = reactExports.useState({});
+  const [message, setMessage] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (search?.package) {
+      setMessage(`Hi, I'm interested in the ${search.package} package. 
+
+I'd like to discuss: `);
+    }
+  }, [search?.package]);
   const onSubmit = (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -93,7 +118,7 @@ ${parsed.data.message}`;
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "message", className: "text-sm font-medium text-slate-100", children: "Project details" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { id: "message", name: "message", rows: 6, maxLength: 1e3, "aria-describedby": errors.message ? "message-error" : void 0, className: "mt-2 min-h-42.5 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none", placeholder: "Tell us what you want to build, your budget, or your timeline." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("textarea", { id: "message", name: "message", rows: 6, maxLength: 1e3, value: message, onChange: (e) => setMessage(e.target.value), "aria-describedby": errors.message ? "message-error" : void 0, className: "mt-2 min-h-42.5 w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none", placeholder: "Tell us what you want to build, your budget, or your timeline." }),
           errors.message && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "message-error", className: "mt-2 text-xs text-destructive", children: errors.message })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "inline-flex w-full items-center justify-center gap-2 rounded-3xl bg-linear-to-r from-primary to-cyan-500 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl", children: [
