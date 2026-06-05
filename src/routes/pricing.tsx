@@ -17,9 +17,9 @@ export const Route = createFileRoute("/pricing")({
         content:
           "Premium digital packages built for Sri Lankan businesses with transparent pricing and clear value tiers.",
       },
-      { property: "og:url", content: "https://niurodigital.lk/pricing" },
+      { property: "og:url", content: "https://www.niurodigital.lk/pricing" },
     ],
-    links: [{ rel: "canonical", href: "https://niurodigital.lk/pricing" }],
+    links: [{ rel: "canonical", href: "https://www.niurodigital.lk/pricing" }],
   }),
   component: Pricing,
 });

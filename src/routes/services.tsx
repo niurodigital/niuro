@@ -13,9 +13,9 @@ export const Route = createFileRoute("/services")({
       },
       { property: "og:title", content: "Services — NIURO Digital" },
       { property: "og:description", content: "Full-stack digital services for modern businesses." },
-      { property: "og:url", content: "https://niurodigital.lk/services" },
+      { property: "og:url", content: "https://www.niurodigital.lk/services" },
     ],
-    links: [{ rel: "canonical", href: "https://niurodigital.lk/services" }],
+    links: [{ rel: "canonical", href: "https://www.niurodigital.lk/services" }],
   }),
   component: Services,
 });

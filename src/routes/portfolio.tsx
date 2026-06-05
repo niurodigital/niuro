@@ -14,9 +14,9 @@ export const Route = createFileRoute("/portfolio")({
       },
       { property: "og:title", content: "Portfolio — NIURO Digital" },
       { property: "og:description", content: "Selected work by NIURO Digital." },
-      { property: "og:url", content: "https://niurodigital.lk/portfolio" },
+      { property: "og:url", content: "https://www.niurodigital.lk/portfolio" },
     ],
-    links: [{ rel: "canonical", href: "https://niurodigital.lk/portfolio" }],
+    links: [{ rel: "canonical", href: "https://www.niurodigital.lk/portfolio" }],
   }),
   component: Portfolio,
 });

@@ -23,7 +23,9 @@ export const Route = createFileRoute("/")({
         content:
           "Websites, Mobile Apps, Business Software & Digital Innovation. Transform your business with next-gen intelligent solutions.",
       },
+      { property: "og:url", content: "https://www.niurodigital.lk/" },
     ],
+    links: [{ rel: "canonical", href: "https://www.niurodigital.lk/" }],
   }),
   component: Home,
 });

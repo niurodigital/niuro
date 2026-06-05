@@ -429,9 +429,11 @@ const Route$7 = createRootRouteWithContext()({
         content: "Websites, Mobile Apps, Business Software & Digital Innovation."
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://niurodigital.lk/og-image.png" },
+      { property: "og:image", content: "https://www.niurodigital.lk/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://niurodigital.lk/og-image.png" },
+      { name: "twitter:image", content: "https://www.niurodigital.lk/og-image.png" },
+      { name: "google-site-verification", content: "I6jvF75ckwgP3pzEy8uC87mHrnCcOqHK4fG1j4C3gj0" },
+      { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#000000" }
     ],
     links: [
@@ -502,7 +504,7 @@ function RootComponent() {
     ] })
   ] });
 }
-const BASE_URL = "https://niurodigital.lk";
+const BASE_URL = "https://www.niurodigital.lk";
 const paths = ["/", "/about", "/services", "/pricing", "/portfolio", "/contact"];
 const Route$6 = createFileRoute("/sitemap.xml")({
   server: {
@@ -536,11 +538,11 @@ const Route$5 = createFileRoute("/services")({
       content: "Full-stack digital services for modern businesses."
     }, {
       property: "og:url",
-      content: "https://niurodigital.lk/services"
+      content: "https://www.niurodigital.lk/services"
     }],
     links: [{
       rel: "canonical",
-      href: "https://niurodigital.lk/services"
+      href: "https://www.niurodigital.lk/services"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$5, "component")
@@ -561,11 +563,11 @@ const Route$4 = createFileRoute("/pricing")({
       content: "Premium digital packages built for Sri Lankan businesses with transparent pricing and clear value tiers."
     }, {
       property: "og:url",
-      content: "https://niurodigital.lk/pricing"
+      content: "https://www.niurodigital.lk/pricing"
     }],
     links: [{
       rel: "canonical",
-      href: "https://niurodigital.lk/pricing"
+      href: "https://www.niurodigital.lk/pricing"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
@@ -586,11 +588,11 @@ const Route$3 = createFileRoute("/portfolio")({
       content: "Selected work by NIURO Digital."
     }, {
       property: "og:url",
-      content: "https://niurodigital.lk/portfolio"
+      content: "https://www.niurodigital.lk/portfolio"
     }],
     links: [{
       rel: "canonical",
-      href: "https://niurodigital.lk/portfolio"
+      href: "https://www.niurodigital.lk/portfolio"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
@@ -611,11 +613,11 @@ const Route$2 = createFileRoute("/contact")({
       content: "Let's build something together."
     }, {
       property: "og:url",
-      content: "https://niurodigital.lk/contact"
+      content: "https://www.niurodigital.lk/contact"
     }],
     links: [{
       rel: "canonical",
-      href: "https://niurodigital.lk/contact"
+      href: "https://www.niurodigital.lk/contact"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component"),
@@ -639,11 +641,11 @@ const Route$1 = createFileRoute("/about")({
       content: "Sri Lankan software studio building next-gen intelligent solutions."
     }, {
       property: "og:url",
-      content: "https://niurodigital.lk/about"
+      content: "https://www.niurodigital.lk/about"
     }],
     links: [{
       rel: "canonical",
-      href: "https://niurodigital.lk/about"
+      href: "https://www.niurodigital.lk/about"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
@@ -656,6 +658,13 @@ const Route = createFileRoute("/")({
     }, {
       name: "description",
       content: "Websites, Mobile Apps, Business Software & Digital Innovation. Transform your business with next-gen intelligent solutions."
+    }, {
+      property: "og:url",
+      content: "https://www.niurodigital.lk/"
+    }],
+    links: [{
+      rel: "canonical",
+      href: "https://www.niurodigital.lk/"
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter, "component")

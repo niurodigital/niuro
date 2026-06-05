@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "https://niurodigital.lk";
+const BASE_URL = "https://www.niurodigital.lk";
 const paths = ["/", "/about", "/services", "/pricing", "/portfolio", "/contact"];
 
 export const Route = createFileRoute("/sitemap.xml")({
