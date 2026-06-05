@@ -17,11 +17,16 @@ import { useScrambleText } from "@/hooks/useScrambleText";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NIURO Digital — Smart Digital Solutions for Sri Lankan Businesses" },
+      { title: "NIURO Digital | Web Development & Software Company in Sri Lanka" },
       {
         name: "description",
         content:
-          "Websites, Mobile Apps, Business Software & Digital Innovation. Transform your business with next-gen intelligent solutions.",
+          "NIURO Digital provides professional web development, mobile app development, custom software solutions, and digital services for businesses in Sri Lanka.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Web Development Sri Lanka, Website Development Sri Lanka, Software Company Sri Lanka, Custom Software Development Sri Lanka, Mobile App Development Sri Lanka, Web Application Development Sri Lanka, Website Design Sri Lanka, E-Commerce Website Development Sri Lanka, Next.js Development Services, React Development Services, API Development Services, AI Solutions Sri Lanka, Affordable Website Development in Sri Lanka, Hire Web Developer Sri Lanka",
       },
       { property: "og:url", content: "https://www.niurodigital.lk/" },
     ],
@@ -163,7 +168,7 @@ function Home() {
         <div className="mx-auto w-full max-w-5xl flex flex-col items-center justify-center gap-6 sm:gap-10">
           <div className="max-w-3xl">
             <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-foreground drop-shadow-lg">
-              <span className="block">{scramble1.displayText}</span>
+              <span className="block">Web Development &amp; Custom Software Solutions in Sri Lanka</span>
               <span className="block text-gradient mt-2 sm:mt-3">{scramble2.displayText}</span>
             </h1>
             <p className="hero-desc mt-4 sm:mt-6 text-sm xs:text-base sm:text-lg text-muted-foreground/90 font-medium leading-7 sm:leading-8">

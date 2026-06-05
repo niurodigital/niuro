@@ -423,6 +423,10 @@ const Route$7 = createRootRouteWithContext()({
         content: "NIURO Digital builds websites, mobile apps and business software for Sri Lankan companies. Next-gen intelligent solutions for business optimization."
       },
       { name: "author", content: "NIURO Digital" },
+      {
+        name: "keywords",
+        content: "Web Development Sri Lanka, Software Company Sri Lanka, Software Development Sri Lanka, Website Development Sri Lanka, Website Design Sri Lanka, Custom Software Development Sri Lanka, Web Application Development Sri Lanka, Mobile App Development Sri Lanka, IT Solutions Sri Lanka, Digital Solutions Sri Lanka, Web Development Colombo, Software Company Colombo, E-Commerce Website Development Sri Lanka, Next.js Development Services, React Development Services, Android App Development, iOS App Development, Cross Platform App Development, Progressive Web App Development, API Development Services, Headless CMS Integration, AI Solutions Sri Lanka, Machine Learning Development Sri Lanka, Chatbot Development Sri Lanka, Affordable Website Development in Sri Lanka, Hire Web Developer Sri Lanka"
+      },
       { property: "og:title", content: "NIURO Digital — Next-Gen Intelligent Solutions" },
       {
         property: "og:description",
@@ -432,7 +436,7 @@ const Route$7 = createRootRouteWithContext()({
       { property: "og:image", content: "https://www.niurodigital.lk/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "https://www.niurodigital.lk/og-image.png" },
-      { name: "google-site-verification", content: "I6jvF75ckwgP3pzEy8uC87mHrnCcOqHK4fG1j4C3gj0" },
+      { name: "google-site-verification", content: "E_ZgQbOkG6Tq0qqs-ojlH_4wm-O-PU82WLSuwFOt4aU" },
       { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#000000" }
     ],
@@ -475,6 +479,29 @@ const Route$7 = createRootRouteWithContext()({
       },
       {
         src: "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"
+      },
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "NIURO Digital",
+          url: "https://www.niurodigital.lk",
+          logo: "https://www.niurodigital.lk/favicon.png",
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              telephone: "+94 769 626 733",
+              contactType: "customer service",
+              areaServed: "LK"
+            }
+          ],
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "LK",
+            addressLocality: "Sri Lanka"
+          }
+        })
       }
     ]
   }),
@@ -650,14 +677,17 @@ const Route$1 = createFileRoute("/about")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-Vkt7sEUk.mjs");
+const $$splitComponentImporter = () => import("./index-C3DZxKzU.mjs");
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{
-      title: "NIURO Digital — Smart Digital Solutions for Sri Lankan Businesses"
+      title: "NIURO Digital | Web Development & Software Company in Sri Lanka"
     }, {
       name: "description",
-      content: "Websites, Mobile Apps, Business Software & Digital Innovation. Transform your business with next-gen intelligent solutions."
+      content: "NIURO Digital provides professional web development, mobile app development, custom software solutions, and digital services for businesses in Sri Lanka."
+    }, {
+      name: "keywords",
+      content: "Web Development Sri Lanka, Website Development Sri Lanka, Software Company Sri Lanka, Custom Software Development Sri Lanka, Mobile App Development Sri Lanka, Web Application Development Sri Lanka, Website Design Sri Lanka, E-Commerce Website Development Sri Lanka, Next.js Development Services, React Development Services, API Development Services, AI Solutions Sri Lanka, Affordable Website Development in Sri Lanka, Hire Web Developer Sri Lanka"
     }, {
       property: "og:url",
       content: "https://www.niurodigital.lk/"

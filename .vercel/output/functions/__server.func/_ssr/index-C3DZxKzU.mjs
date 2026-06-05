@@ -90,7 +90,7 @@ const whyUs = [{
 }];
 function Home() {
   const containerRef = reactExports.useRef(null);
-  const scramble1 = useScrambleText({
+  useScrambleText({
     text: "Transform your business with",
     delay: 100,
     speed: 40
@@ -185,7 +185,7 @@ function Home() {
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "relative flex min-h-[calc(100vh-80px)] sm:min-h-screen items-center justify-center py-12 sm:py-20 text-center px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto w-full max-w-5xl flex flex-col items-center justify-center gap-6 sm:gap-10", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-foreground drop-shadow-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block", children: scramble1.displayText }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block", children: "Web Development & Custom Software Solutions in Sri Lanka" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block text-gradient mt-2 sm:mt-3", children: scramble2.displayText })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hero-desc mt-4 sm:mt-6 text-sm xs:text-base sm:text-lg text-muted-foreground/90 font-medium leading-7 sm:leading-8", children: "Websites, mobile apps, business software and digital innovation — engineered for Sri Lankan businesses ready to scale." })
