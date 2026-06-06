@@ -75,17 +75,17 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$o = [
+const __iconNode$p = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$o);
-const __iconNode$n = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$p);
+const __iconNode$o = [
   ["path", { d: "M7 7h10v10", key: "1tivn9" }],
   ["path", { d: "M7 17 17 7", key: "1vkiza" }]
 ];
-const ArrowUpRight = createLucideIcon("arrow-up-right", __iconNode$n);
-const __iconNode$m = [
+const ArrowUpRight = createLucideIcon("arrow-up-right", __iconNode$o);
+const __iconNode$n = [
   ["path", { d: "M12 8V4H8", key: "hb8ula" }],
   ["rect", { width: "16", height: "12", x: "4", y: "8", rx: "2", key: "enze0r" }],
   ["path", { d: "M2 14h2", key: "vft8re" }],
@@ -93,9 +93,14 @@ const __iconNode$m = [
   ["path", { d: "M15 13v2", key: "1xurst" }],
   ["path", { d: "M9 13v2", key: "rq6x2g" }]
 ];
-const Bot = createLucideIcon("bot", __iconNode$m);
-const __iconNode$l = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$l);
+const Bot = createLucideIcon("bot", __iconNode$n);
+const __iconNode$m = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$m);
+const __iconNode$l = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$l);
 const __iconNode$k = [
   [
     "path",
@@ -323,8 +328,9 @@ export {
   Layers as c,
   Monitor as d,
   Sparkles as e,
-  MapPin as f,
-  Send as g,
-  ArrowRight as h,
-  ShieldCheck as i
+  Clock as f,
+  MapPin as g,
+  Send as h,
+  ArrowRight as i,
+  ShieldCheck as j
 };

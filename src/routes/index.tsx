@@ -67,7 +67,11 @@ function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Hero texts for scramble effect
-  const scramble1 = useScrambleText({ text: "Transform your business with", delay: 100, speed: 40 });
+  const scramble1 = useScrambleText({
+    text: "Web Development & Custom Software Solutions in Sri Lanka",
+    delay: 100,
+    speed: 40,
+  });
   const scramble2 = useScrambleText({ text: "smart digital solutions", delay: 600, speed: 50 });
 
   useEffect(() => {
@@ -168,11 +172,12 @@ function Home() {
         <div className="mx-auto w-full max-w-5xl flex flex-col items-center justify-center gap-6 sm:gap-10">
           <div className="max-w-3xl">
             <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-foreground drop-shadow-lg">
-              <span className="block">Web Development &amp; Custom Software Solutions in Sri Lanka</span>
+              <span className="block">{scramble1.displayText}</span>
               <span className="block text-gradient mt-2 sm:mt-3">{scramble2.displayText}</span>
             </h1>
             <p className="hero-desc mt-4 sm:mt-6 text-sm xs:text-base sm:text-lg text-muted-foreground/90 font-medium leading-7 sm:leading-8">
-              Websites, mobile apps, business software and digital innovation — engineered for Sri Lankan businesses ready to scale.
+              Websites, mobile apps, business software and digital innovation — engineered for Sri
+              Lankan businesses ready to scale.
             </p>
           </div>
           <div className="hero-btns mt-4 sm:mt-6 flex flex-wrap justify-center gap-3 sm:gap-4">
@@ -181,7 +186,10 @@ function Home() {
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-primary px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-primary-foreground shadow-glow transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_50px_oklch(0.72_0.18_235/0.6)]"
             >
               Pricing
-              <ArrowRight size={16} className="sm:size-[18px] transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight
+                size={16}
+                className="sm:size-[18px] transition-transform duration-300 group-hover:translate-x-1"
+              />
             </Link>
           </div>
           <div className="hero-stats mt-8 sm:mt-12 grid w-full max-w-4xl grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 border-t border-border/50 pt-6 sm:pt-8">
@@ -191,9 +199,14 @@ function Home() {
               ["95%", "On-time delivery"],
               ["1", "Year in business"],
             ].map(([n, l]) => (
-              <div key={l} className="rounded-3xl bg-white/5 px-4 sm:px-6 py-4 sm:py-5 shadow-[0_20px_50px_rgba(15,23,42,0.08)]">
+              <div
+                key={l}
+                className="rounded-3xl bg-white/5 px-4 sm:px-6 py-4 sm:py-5 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              >
                 <div className="text-2xl sm:text-3xl font-black text-gradient">{n}</div>
-                <div className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">{l}</div>
+                <div className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  {l}
+                </div>
               </div>
             ))}
           </div>
@@ -211,7 +224,9 @@ function Home() {
               Engineering across every digital surface
             </h3>
             <p className="mt-4 sm:mt-6 text-muted-foreground leading-relaxed text-xs xs:text-sm md:text-base">
-              We build highly customized, premium web applications, websites, mobile apps, and custom business systems using modern tech stacks that deliver growth for your business.
+              We build highly customized, premium web applications, websites, mobile apps, and
+              custom business systems using modern tech stacks that deliver growth for your
+              business.
             </p>
             <div className="mt-6 sm:mt-8">
               <Link
@@ -228,7 +243,6 @@ function Home() {
       {/* WHY US SECTION */}
       <section className="why-slide w-full min-h-auto py-16 sm:py-20 px-4 sm:px-6 lg:px-16 box-border bg-background/10">
         <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start lg:items-center">
-
           {/* Left Column: Heading Content */}
           <div className="lg:col-span-4 text-center lg:text-left">
             <span className="inline-block rounded-full glass px-4 py-1 text-xs font-medium uppercase tracking-widest text-primary mb-4">
@@ -238,7 +252,8 @@ function Home() {
               Built different. Built for results.
             </h3>
             <p className="mt-4 sm:mt-6 text-muted-foreground leading-relaxed text-xs xs:text-sm md:text-base max-w-xl mx-auto lg:mx-0">
-              We blend fast delivery, modern tech stacks, and start-up friendly pricing with long-term post-launch support for Sri Lankan businesses.
+              We blend fast delivery, modern tech stacks, and start-up friendly pricing with
+              long-term post-launch support for Sri Lankan businesses.
             </p>
             <div className="mt-6 sm:mt-8">
               <Link
@@ -252,7 +267,10 @@ function Home() {
 
           <div className="lg:col-span-8 grid gap-4 sm:gap-6 grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 w-full">
             {whyUs.map((w) => (
-              <div key={w.title} className="why-card-horiz flex flex-col gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-6 hover:bg-background/40 transition-colors text-left h-full">
+              <div
+                key={w.title}
+                className="why-card-horiz flex flex-col gap-3 sm:gap-4 rounded-2xl glass p-4 sm:p-6 hover:bg-background/40 transition-colors text-left h-full"
+              >
                 <div className="shrink-0 rounded-lg bg-primary/20 p-3 sm:p-4 text-primary self-start">
                   <w.icon size={20} className="sm:size-[24px]" />
                 </div>
@@ -263,7 +281,6 @@ function Home() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -273,7 +290,8 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-hero opacity-30 mix-blend-screen" />
           <div className="relative z-10 max-w-3xl mx-auto">
             <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black drop-shadow-lg leading-tight">
-              Ready to <span className="text-gradient block mt-1 sm:mt-2">build something brilliant?</span>
+              Ready to{" "}
+              <span className="text-gradient block mt-1 sm:mt-2">build something brilliant?</span>
             </h2>
             <p className="mx-auto mt-4 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg text-muted-foreground/90 font-medium">
               Tell us about your project. We'll get back within one business day.

@@ -172,7 +172,9 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate3d(0, 0, 0);
-    transition: transform 0.12s ease-out, opacity 0.25s ease-out;
+    transition:
+      transform 0.12s ease-out,
+      opacity 0.25s ease-out;
   }
 
   .custom-cursor-outer {
@@ -211,7 +213,7 @@
     .custom-cursor-inner {
       display: none !important;
     }
-    
+
     body {
       cursor: auto;
     }
@@ -241,4 +243,3 @@
     pointer-events: none;
   }
 }
-

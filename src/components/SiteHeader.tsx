@@ -69,23 +69,23 @@ export function SiteHeader() {
 
   const handleBtnEnter = (e: React.MouseEvent) => {
     if (isTouchDevice) return;
-    gsap.to(e.currentTarget, { 
-      scale: 1.05, 
-      boxShadow: "0 0 30px oklch(0.72 0.18 235 / 0.8)", 
+    gsap.to(e.currentTarget, {
+      scale: 1.05,
+      boxShadow: "0 0 30px oklch(0.72 0.18 235 / 0.8)",
       y: -3,
-      duration: 0.4, 
-      ease: "back.out(2)" 
+      duration: 0.4,
+      ease: "back.out(2)",
     });
   };
 
   const handleBtnLeave = (e: React.MouseEvent) => {
     if (isTouchDevice) return;
-    gsap.to(e.currentTarget, { 
-      scale: 1, 
-      boxShadow: "0 0 40px oklch(0.72 0.18 235 / 0.4)", 
+    gsap.to(e.currentTarget, {
+      scale: 1,
+      boxShadow: "0 0 40px oklch(0.72 0.18 235 / 0.4)",
       y: 0,
-      duration: 0.4, 
-      ease: "back.out(2)" 
+      duration: 0.4,
+      ease: "back.out(2)",
     });
   };
 
@@ -93,7 +93,11 @@ export function SiteHeader() {
     <header ref={headerRef} className="sticky top-0 z-50 glass">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3">
         <Link to="/" className="flex items-center gap-2 sm:gap-3 logo-anim flex-shrink-0">
-          <img src={logo} alt="NIURO Digital" className="h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md" />
+          <img
+            src={logo}
+            alt="NIURO Digital"
+            className="h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md"
+          />
           <span className="font-display text-base sm:text-lg font-bold tracking-tight hidden xs:inline-block">
             <span className="text-foreground">NIURO</span>{" "}
             <span className="text-gradient">Digital</span>

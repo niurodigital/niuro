@@ -17,7 +17,7 @@ import "crypto";
 import "async_hooks";
 import "stream";
 import "../_libs/isbot.mjs";
-const appCss = "/assets/styles-e8KItcEf.css";
+const appCss = "/assets/styles-CC6U_57B.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -111,7 +111,14 @@ function SiteHeader() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { ref: headerRef, className: "sticky top-0 z-50 glass", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-2 sm:gap-3 logo-anim flex-shrink-0", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logo, alt: "NIURO Digital", className: "h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "img",
+          {
+            src: logo,
+            alt: "NIURO Digital",
+            className: "h-8 sm:h-9 w-8 sm:w-9 rounded-md object-cover drop-shadow-md"
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-base sm:text-lg font-bold tracking-tight hidden xs:inline-block", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-foreground", children: "NIURO" }),
           " ",
@@ -574,7 +581,7 @@ const Route$5 = createFileRoute("/services")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-const $$splitComponentImporter$4 = () => import("./pricing-DYAi9yhn.mjs");
+const $$splitComponentImporter$4 = () => import("./pricing-XWrdfD4V.mjs");
 const Route$4 = createFileRoute("/pricing")({
   head: () => ({
     meta: [{
@@ -677,7 +684,7 @@ const Route$1 = createFileRoute("/about")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-C3DZxKzU.mjs");
+const $$splitComponentImporter = () => import("./index-gIXzCpgf.mjs");
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{

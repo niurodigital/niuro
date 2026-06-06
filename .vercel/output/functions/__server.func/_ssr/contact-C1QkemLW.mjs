@@ -1,7 +1,7 @@
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
 import { e as useSearch } from "../_libs/tanstack__react-router.mjs";
 import { S as Section, R as Reveal } from "./Section-DpXDcXiL.mjs";
-import { P as Phone, b as MessageCircle, a as Mail, f as MapPin, g as Send } from "../_libs/lucide-react.mjs";
+import { P as Phone, b as MessageCircle, a as Mail, g as MapPin, h as Send } from "../_libs/lucide-react.mjs";
 import { o as objectType, s as stringType } from "../_libs/zod.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";

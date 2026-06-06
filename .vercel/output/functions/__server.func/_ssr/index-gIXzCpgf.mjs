@@ -1,6 +1,6 @@
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
 import { L as Link } from "../_libs/tanstack__react-router.mjs";
-import { h as ArrowRight, Z as Zap, i as ShieldCheck, e as Sparkles, U as Users, R as Rocket, B as Bot } from "../_libs/lucide-react.mjs";
+import { i as ArrowRight, Z as Zap, j as ShieldCheck, e as Sparkles, U as Users, R as Rocket, B as Bot } from "../_libs/lucide-react.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";
 import "../_libs/cookie-es.mjs";
@@ -24,10 +24,27 @@ function useScrambleText({
 }) {
   const [displayText, setDisplayText] = reactExports.useState(text.replace(/./g, " "));
   const [isPlaying, setIsPlaying] = reactExports.useState(false);
-  const play = () => {
+  const timeoutRef = reactExports.useRef(null);
+  const rafRef = reactExports.useRef(null);
+  const delayTimeoutRef = reactExports.useRef(null);
+  const cleanTimers = reactExports.useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (delayTimeoutRef.current) {
+      clearTimeout(delayTimeoutRef.current);
+      delayTimeoutRef.current = null;
+    }
+  }, []);
+  const play = reactExports.useCallback(() => {
+    cleanTimers();
     setIsPlaying(true);
     let startTimestamp = null;
-    let timeoutId;
     const step = (timestamp) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = timestamp - startTimestamp;
@@ -41,8 +58,8 @@ function useScrambleText({
       }).join("");
       setDisplayText(nextText);
       if (progress < duration) {
-        timeoutId = setTimeout(() => {
-          requestAnimationFrame(step);
+        timeoutRef.current = setTimeout(() => {
+          rafRef.current = requestAnimationFrame(step);
         }, speed);
       } else {
         setDisplayText(text);
@@ -50,17 +67,21 @@ function useScrambleText({
       }
     };
     if (delay > 0) {
-      setTimeout(() => requestAnimationFrame(step), delay);
+      delayTimeoutRef.current = setTimeout(() => {
+        rafRef.current = requestAnimationFrame(step);
+      }, delay);
     } else {
-      requestAnimationFrame(step);
+      rafRef.current = requestAnimationFrame(step);
     }
-    return () => clearTimeout(timeoutId);
-  };
+  }, [text, speed, duration, delay, cleanTimers]);
   reactExports.useEffect(() => {
     if (playOnMount) {
       play();
     }
-  }, [text]);
+    return () => {
+      cleanTimers();
+    };
+  }, [text, playOnMount, play, cleanTimers]);
   return { displayText, play, isPlaying };
 }
 const whyUs = [{
@@ -90,8 +111,8 @@ const whyUs = [{
 }];
 function Home() {
   const containerRef = reactExports.useRef(null);
-  useScrambleText({
-    text: "Transform your business with",
+  const scramble1 = useScrambleText({
+    text: "Web Development & Custom Software Solutions in Sri Lanka",
     delay: 100,
     speed: 40
   });
@@ -185,7 +206,7 @@ function Home() {
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "relative flex min-h-[calc(100vh-80px)] sm:min-h-screen items-center justify-center py-12 sm:py-20 text-center px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto w-full max-w-5xl flex flex-col items-center justify-center gap-6 sm:gap-10", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-foreground drop-shadow-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block", children: "Web Development & Custom Software Solutions in Sri Lanka" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block", children: scramble1.displayText }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "block text-gradient mt-2 sm:mt-3", children: scramble2.displayText })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hero-desc mt-4 sm:mt-6 text-sm xs:text-base sm:text-lg text-muted-foreground/90 font-medium leading-7 sm:leading-8", children: "Websites, mobile apps, business software and digital innovation — engineered for Sri Lankan businesses ready to scale." })
@@ -230,7 +251,8 @@ function Home() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-hero opacity-30 mix-blend-screen" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10 max-w-3xl mx-auto", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black drop-shadow-lg leading-tight", children: [
-          "Ready to ",
+          "Ready to",
+          " ",
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient block mt-1 sm:mt-2", children: "build something brilliant?" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mx-auto mt-4 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg text-muted-foreground/90 font-medium", children: "Tell us about your project. We'll get back within one business day." }),

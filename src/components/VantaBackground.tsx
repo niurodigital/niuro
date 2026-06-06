@@ -28,7 +28,7 @@ export function VantaBackground() {
             points: 15.0,
             maxDistance: 25.0,
             spacing: 20.0,
-          })
+          }),
         );
       }
     };
@@ -57,16 +57,16 @@ export function VantaBackground() {
   }, [vantaEffect]);
 
   return (
-    <div 
-      ref={myRef} 
+    <div
+      ref={myRef}
       style={{
-        position: 'fixed',
+        position: "fixed",
         zIndex: -1,
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-      }} 
+        width: "100%",
+        height: "100%",
+      }}
     />
   );
 }

@@ -11,12 +11,12 @@ export function CustomCursor() {
     // Only initialize on devices with hover and fine pointer (exclude touch)
     const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const isTouchDevice = window.matchMedia("(hover: none) or (pointer: coarse)").matches;
-    
+
     if (!supportsHover || isTouchDevice) {
       setIsSupported(false);
       return;
     }
-    
+
     setIsSupported(true);
 
     const outer = outerRef.current;

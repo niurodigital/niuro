@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
-const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
 
 interface ScrambleOptions {
   text: string;
@@ -17,13 +17,32 @@ export function useScrambleText({
   delay = 0,
   playOnMount = true,
 }: ScrambleOptions) {
-  const [displayText, setDisplayText] = useState(text.replace(/./g, ' '));
+  const [displayText, setDisplayText] = useState(text.replace(/./g, " "));
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const play = () => {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const delayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const cleanTimers = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (delayTimeoutRef.current) {
+      clearTimeout(delayTimeoutRef.current);
+      delayTimeoutRef.current = null;
+    }
+  }, []);
+
+  const play = useCallback(() => {
+    cleanTimers();
     setIsPlaying(true);
     let startTimestamp: number | null = null;
-    let timeoutId: NodeJS.Timeout;
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -31,21 +50,21 @@ export function useScrambleText({
       const fraction = Math.min(progress / duration, 1);
 
       const nextText = text
-        .split('')
+        .split("")
         .map((char, index) => {
-          if (char === ' ') return ' ';
+          if (char === " ") return " ";
           if (index / text.length < fraction) {
             return char;
           }
           return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
         })
-        .join('');
+        .join("");
 
       setDisplayText(nextText);
 
       if (progress < duration) {
-        timeoutId = setTimeout(() => {
-          requestAnimationFrame(step);
+        timeoutRef.current = setTimeout(() => {
+          rafRef.current = requestAnimationFrame(step);
         }, speed);
       } else {
         setDisplayText(text);
@@ -54,19 +73,22 @@ export function useScrambleText({
     };
 
     if (delay > 0) {
-      setTimeout(() => requestAnimationFrame(step), delay);
+      delayTimeoutRef.current = setTimeout(() => {
+        rafRef.current = requestAnimationFrame(step);
+      }, delay);
     } else {
-      requestAnimationFrame(step);
+      rafRef.current = requestAnimationFrame(step);
     }
-
-    return () => clearTimeout(timeoutId);
-  };
+  }, [text, speed, duration, delay, cleanTimers]);
 
   useEffect(() => {
     if (playOnMount) {
       play();
     }
-  }, [text]);
+    return () => {
+      cleanTimers();
+    };
+  }, [text, playOnMount, play, cleanTimers]);
 
   return { displayText, play, isPlaying };
 }
