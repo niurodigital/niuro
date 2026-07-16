@@ -606,7 +606,7 @@ const Route$4 = createFileRoute("/pricing")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./portfolio-sgyceYvS.mjs");
+const $$splitComponentImporter$3 = () => import("./portfolio-O_Yueuxi.mjs");
 const Route$3 = createFileRoute("/portfolio")({
   head: () => ({
     meta: [{

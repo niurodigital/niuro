@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Section, SectionHeader, Reveal } from "@/components/Section";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import nugithaPortfolioImg from "@/assets/nugitha-portfolio.png";
+import glowBeautyImg from "@/assets/glow-beauty.png";
+import ceylontheadImg from "@/assets/ceylon-threads.png";
+import ceylonEleganceImg from "@/assets/ceylon-elegance.png";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -23,21 +25,38 @@ export const Route = createFileRoute("/portfolio")({
 
 const projects = [
   {
-    name: "Portfolio of Nugitha",
+    name: "Glow Beauty Saloon",
     tag: "Website",
-    desc: "A portfolio website for showcasing projects and skills.",
-    link: "https://nugi-dev.vercel.app/",
-    image: nugithaPortfolioImg,
+    category: "Starter Website",
+    desc: "A leading luxury beauty saloon in Colombo, Sri Lanka. Expert care, premium products, and unforgettable results.",
+    link: "https://glow-beauty-saloon.vercel.app/",
+    image: glowBeautyImg,
+  },
+  {
+    name: "Ceylon Threads",
+    tag: "Website",
+    category: "Business Website",
+    desc: "A premium online store for Sri Lankan Handloom products.",
+    link: "https://ceylon-threads.vercel.app/",
+    image: ceylontheadImg,
+  },
+  {
+    name: "Ceylon Elegance",
+    tag: "Website",
+    category: "Premium Business Website",
+    desc: "A e-commerce store for handmade products in Sri Lanka.",
+    link: "https://ceylon-elegance.vercel.app",
+    image: ceylonEleganceImg,
   },
 ];
 
-const tags = ["All", ...Array.from(new Set(projects.map((p) => p.tag)))];
+const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
 
 function Portfolio() {
-  const [activeTag, setActiveTag] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredProjects =
-    activeTag === "All" ? projects : projects.filter((p) => p.tag === activeTag);
+    activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory);
 
   return (
     <Section className="pt-28">
@@ -49,17 +68,17 @@ function Portfolio() {
 
       <Reveal delay={0.1}>
         <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
-          {tags.map((tag) => (
+          {categories.map((category) => (
             <button
-              key={tag}
-              onClick={() => setActiveTag(tag)}
+              key={category}
+              onClick={() => setActiveCategory(category)}
               className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
-                activeTag === tag
+                activeCategory === category
                   ? "bg-primary text-primary-foreground shadow-glow scale-105"
                   : "glass text-muted-foreground hover:text-foreground hover:bg-white/5"
               }`}
             >
-              {tag}
+              {category}
             </button>
           ))}
         </div>
@@ -90,7 +109,7 @@ function Portfolio() {
               </div>
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <div className="text-xs uppercase tracking-widest text-primary">{p.tag}</div>
+                  <div className="text-xs uppercase tracking-widest text-primary">{p.category}</div>
                   <h3 className="mt-1 text-lg font-semibold">{p.name}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
                 </div>
